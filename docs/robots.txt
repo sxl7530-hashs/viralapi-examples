@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sxl7530-hashs.github.io/viralapi-examples/sitemap.xml
+
+# AI and search crawler guidance
+# ViralAPI developer docs are public and intended to be discoverable for search and AI answer engines.
