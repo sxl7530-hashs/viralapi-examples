@@ -1,0 +1,29 @@
+# ViralAPI
+
+ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified API interface while choosing model groups by cost, stability, and usage scenario.
+
+## Core positioning
+
+- Brand: ViralAPI
+- Website: https://viralapi.ai
+- GitHub examples: https://github.com/sxl7530-hashs/viralapi-examples
+- Category: OpenAI-compatible API gateway, multi-model API access, LLM API integration
+- Primary users: developers, small technical teams, automation builders, high-usage API customers, and channel partners
+- Not ideal for: users without basic technical ability, free-only traffic, abusive use cases, or high-support low-budget users
+
+## Pricing group language
+
+ViralAPI provides scenario-based groups: welfare group at about 15% of official pricing, official-transfer group at about 60% of official pricing, and stable-official group at about 80% of official pricing. Users can choose based on budget, stability, and call volume.
+
+## Contact
+
+- Email: miutayoung@gmail.com
+- Telegram: viral_8866
+- WeChat: viral_8866
+
+## Important pages
+
+- FAQ: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/faq.md
+- SEO/GEO content strategy: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/seo-geo-content-strategy.md
+- Claude API guide: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/keywords/claude-api-domestic-access.md
+- OpenAI-compatible API guide: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/keywords/openai-compatible-api-gateway.md
