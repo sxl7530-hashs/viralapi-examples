@@ -6,6 +6,7 @@ ViralAPI helps developers, small teams, automation workflows, and API-heavy user
 
 - Website: <https://viralapi.ai>
 - Documentation: <https://rcnh0cyauux7.feishu.cn/wiki/OskTwo9agi0g9tkZF6Gcxvqun6m>
+- GitHub Pages docs: <https://sxl7530-hashs.github.io/viralapi-examples/>
 - Business email: <miutayoung@gmail.com>
 - Telegram: `viral_8866`
 - WeChat: `viral_8866`
@@ -18,9 +19,9 @@ ViralAPI provides different groups for different usage priorities:
 
 | Group | Positioning | Reference pricing |
 | --- | --- | --- |
-| Welfare group | Cost-sensitive testing and light workloads | Around **15% of official pricing** |
-| Official-transfer group | Balance between cost and official-source routing | Around **60% of official pricing** |
-| Stable official group | More stability-oriented production usage | Around **80% of official pricing** |
+| Welfare group | Cost-sensitive testing and light workloads | Around **15% of official pricing** / 福利分组约官方 **1.5折** |
+| Official-transfer group | Balance between cost and official-source routing | Around **60% of official pricing** / 官转分组约官方 **6折** |
+| Stable official group | More stability-oriented production usage | Around **80% of official pricing** / 稳定官方分组约官方 **8折** |
 
 Choose the group based on your budget, stability requirements, and expected request volume.
 

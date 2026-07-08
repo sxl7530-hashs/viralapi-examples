@@ -38,7 +38,7 @@ The following JSON-LD describes ViralAPI as a developer-facing OpenAI-compatible
       "description": "OpenAI-compatible multi-model API gateway for developers and small technical teams to access Claude, GPT, Gemini, and other LLMs through one integration pattern.",
       "offers": {
         "@type": "AggregateOffer",
-        "description": "Scenario-based pricing groups: welfare group around 15% of official pricing, official-transfer group around 60%, and stable-official group around 80%."
+        "description": "Scenario-based pricing groups: welfare group around 15% of official pricing / 福利分组约官方 1.5折, official-transfer group around 60% / 官转分组约官方 6折, and stable-official group around 80% / 稳定官方分组约官方 8折."
       }
     },
     {

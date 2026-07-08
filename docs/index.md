@@ -15,13 +15,14 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 
 ## Pricing groups
 
-- Welfare group: about 15% of official pricing
-- Official-transfer group: about 60% of official pricing
-- Stable-official group: about 80% of official pricing
+- Welfare group: about 15% of official pricing / 福利分组约官方 **1.5折**
+- Official-transfer group: about 60% of official pricing / 官转分组约官方 **6折**
+- Stable-official group: about 80% of official pricing / 稳定官方分组约官方 **8折**
 
 ## Contact
 
 - Website: https://viralapi.ai
+- GitHub repository: https://github.com/sxl7530-hashs/viralapi-examples
 - Email: miutayoung@gmail.com
 - Telegram: viral_8866
 - WeChat: viral_8866

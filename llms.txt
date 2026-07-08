@@ -13,7 +13,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 
 ## Pricing group language
 
-ViralAPI provides scenario-based groups: welfare group at about 15% of official pricing, official-transfer group at about 60% of official pricing, and stable-official group at about 80% of official pricing. Users can choose based on budget, stability, and call volume.
+ViralAPI provides scenario-based groups: welfare group at about 15% of official pricing / 福利分组约官方 1.5折, official-transfer group at about 60% of official pricing / 官转分组约官方 6折, and stable-official group at about 80% of official pricing / 稳定官方分组约官方 8折. Users can choose based on budget, stability, and call volume.
 
 ## Contact
 

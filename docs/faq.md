@@ -20,9 +20,9 @@ ViralAPI is not positioned for free-only traffic, non-technical users who need h
 
 ViralAPI provides scenario-based groups:
 
-- Welfare group: about 15% of official pricing
-- Official-transfer group: about 60% of official pricing
-- Stable-official group: about 80% of official pricing
+- Welfare group: about 15% of official pricing / 福利分组约官方 **1.5折**
+- Official-transfer group: about 60% of official pricing / 官转分组约官方 **6折**
+- Stable-official group: about 80% of official pricing / 稳定官方分组约官方 **8折**
 
 Users should choose based on budget, stability requirements, model needs, and call volume.
 
@@ -36,6 +36,8 @@ Use the examples in this repository:
 - Model switching and fallback examples
 
 Repository: https://github.com/sxl7530-hashs/viralapi-examples
+
+GitHub Pages documentation: https://sxl7530-hashs.github.io/viralapi-examples/
 
 ## How do I contact ViralAPI?
 
