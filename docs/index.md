@@ -9,6 +9,9 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - [Keyword Pages](keywords/)
 - [llms.txt](../llms.txt)
 - [llms-full.txt](../llms-full.txt)
+- [Entity Schema](entity-schema.md)
+- [Sitemap](../sitemap.xml)
+- [robots.txt](../robots.txt)
 
 ## Pricing groups
 

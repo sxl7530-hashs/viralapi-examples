@@ -1,3 +1,16 @@
 title: ViralAPI Developer Examples
 description: OpenAI-compatible multi-model API gateway examples for Claude, GPT, Gemini, and LLM API integration.
+url: "https://sxl7530-hashs.github.io"
+baseurl: "/viralapi-examples"
 theme: minima
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+lang: en
+logo: /assets/viralapi-logo.png
+social:
+  name: ViralAPI
+  links:
+    - https://viralapi.ai
+    - https://github.com/sxl7530-hashs/viralapi-examples
