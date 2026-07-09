@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0b1020"/>
+  <rect x="70" y="70" width="1060" height="490" rx="28" fill="none" stroke="#38bdf8" stroke-width="4"/>
+  <circle cx="1020" cy="145" r="64" fill="#0f766e" opacity="0.65"/>
+  <circle cx="1085" cy="215" r="44" fill="#2563eb" opacity="0.75"/>
+  <text x="105" y="170" fill="#22d3ee" font-size="62" font-family="Arial, Helvetica, sans-serif" font-weight="700">ViralAPI</text>
+  <text x="105" y="265" fill="#ffffff" font-size="58" font-family="Arial, Helvetica, sans-serif" font-weight="700">Content Generation Pipeline</text>
+  <text x="105" y="345" fill="#cbd5e1" font-size="34" font-family="Arial, Helvetica, sans-serif">Batching · Retry · Rate Limit · Cost-aware Routing</text>
+  <text x="105" y="430" fill="#94a3b8" font-size="28" font-family="Arial, Helvetica, sans-serif">OpenAI-compatible API gateway for Claude, GPT and Gemini</text>
+  <text x="105" y="510" fill="#a7f3d0" font-size="28" font-family="Arial, Helvetica, sans-serif">https://viralapi.ai · GitHub examples for developers</text>
+</svg>

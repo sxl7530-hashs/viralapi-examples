@@ -38,6 +38,10 @@ export VIRALAPI_BASE_URL="https://your-viralapi-openai-compatible-endpoint/v1"
 
 You can find the correct endpoint and API key in the ViralAPI website/dashboard or documentation.
 
+## Business scenarios
+
+- [Content generation pipeline: batching, retry, rate limits, and cost control](docs/business-scenarios/content-generation-pipeline-cost-control.md)
+
 ## Examples
 
 - [curl example](examples/curl/chat-completions.sh)
