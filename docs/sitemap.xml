@@ -1,27 +1,129 @@
-     1|<?xml version="1.0" encoding="UTF-8"?>
-     2|<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-     3|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>1.0</priority></url>
-     4|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/faq.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-     5|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/entity-schema/</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
-     6|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/seo-geo-content-strategy.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-     7|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/2026-07-07-python-node-claude-gpt-gemini.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-     8|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/2026-07-08-claude-api-gateway.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.7</priority></url>
-     9|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    10|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/claude-api-domestic-access.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    11|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/openai-compatible-api-gateway.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    12|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/gpt-claude-gemini-unified-api.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    13|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/gemini-api-fallback.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    14|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/multi-model-api-gateway-selection.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    15|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/small-team-ai-api-integration.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    16|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/python-claude-api-openai-compatible.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    17|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/nodejs-claude-api-openai-compatible.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    18|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/official-api-vs-api-gateway.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    19|  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/api-cost-optimization-groups.html</loc><lastmod>2026-07-08</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
-    20|  <url>
-    <loc>https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html</loc>
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/faq.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/entity-schema/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/seo-geo-content-strategy.html</loc>
+    <lastmod>2026-07-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
-  <url><loc>https://sxl7530-hashs.github.io/viralapi-examples/medium-automation.html</loc></url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/medium-automation.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/medium-browser-automation.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/2026-07-07-python-node-claude-gpt-gemini.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/2026-07-08-claude-api-gateway.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/2026-07-10-openai-compatible-sdk-gateway.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/claude-api-domestic-access.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/openai-compatible-api-gateway.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/gpt-claude-gemini-unified-api.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/gemini-api-fallback.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/multi-model-api-gateway-selection.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/small-team-ai-api-integration.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/python-claude-api-openai-compatible.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/nodejs-claude-api-openai-compatible.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/official-api-vs-api-gateway.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/keywords/api-cost-optimization-groups.html</loc>
+    <lastmod>2026-07-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 </urlset>
-    21|
