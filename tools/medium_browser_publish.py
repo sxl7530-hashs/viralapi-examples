@@ -25,7 +25,7 @@ import time
 from pathlib import Path
 from typing import Tuple
 
-PROFILE_DIR = Path.home() / ".config" / "viralapi" / "medium-browser"
+PROFILE_DIR = Path(os.environ.get("VIRALAPI_MEDIUM_PROFILE", "/Users/sxl/.config/viralapi/medium-browser")).expanduser()
 MEDIUM_WRITE_URL = "https://medium.com/new-story"
 MEDIUM_ME_URL = "https://medium.com/me/settings"
 
