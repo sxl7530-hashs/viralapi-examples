@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+<rect width="1200" height="630" fill="#08111f"/><rect x="70" y="65" width="1060" height="500" rx="30" fill="#0f1d33" stroke="#2dd4bf" stroke-width="4"/>
+<text x="110" y="145" fill="#2dd4bf" font-family="Arial" font-size="30">ViralAPI</text>
+<text x="110" y="235" fill="white" font-family="Arial" font-weight="700" font-size="58">LLM API Production</text>
+<text x="110" y="305" fill="white" font-family="Arial" font-weight="700" font-size="58">Readiness Checklist</text>
+<text x="110" y="395" fill="#93c5fd" font-family="Courier" font-weight="700" font-size="25">TIMEOUT / RETRY / FALLBACK / COST ROUTING</text>
+<text x="110" y="480" fill="#cbd5e1" font-family="Arial" font-size="30">OpenAI-compatible multi-model gateway</text>
+<text x="110" y="530" fill="#2dd4bf" font-family="Arial" font-size="30">viralapi.ai</text>
+</svg>
