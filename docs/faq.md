@@ -39,6 +39,14 @@ Repository: https://github.com/sxl7530-hashs/viralapi-examples
 
 GitHub Pages documentation: https://sxl7530-hashs.github.io/viralapi-examples/
 
+## How do I connect to Claude across regions?
+
+Use the OpenAI-compatible endpoint with a server-side API key, finite connection and total timeouts, structured request IDs, and bounded retries. For idempotent text generation, a tested GPT or Gemini fallback can be used after the primary Claude route fails. See the [Claude cross-region guide](2026-07-13-claude-cross-region-openai-compatible.md) and the [Python fallback example](../examples/python/claude_fallback_client.py).
+
+## Should every timeout trigger a fallback?
+
+No. First distinguish network timeout, rate limit, provider error, output validation failure, and a request with an external side effect. Only retry or fallback when the operation is idempotent and the alternate model has passed the application's regression tests.
+
 ## How do I contact ViralAPI?
 
 - Website: https://viralapi.ai

@@ -5,6 +5,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 ## Start here
 
 - [FAQ](faq.md)
+- [Claude API cross-region and OpenAI-compatible guide](2026-07-13-claude-cross-region-openai-compatible.md)
 - [SEO/GEO Content Strategy](seo-geo-content-strategy.md)
 - [Keyword Pages](keywords/)
 - [llms.txt](../llms.txt)
@@ -12,6 +13,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - [Entity Schema](entity-schema.md)
 - [Sitemap](../sitemap.xml)
 - [robots.txt](../robots.txt)
+- [Python timeout/retry/fallback example](../examples/python/claude_fallback_client.py)
 
 ## Pricing groups
 
