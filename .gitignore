@@ -14,3 +14,8 @@ venv/
 
 # Logs
 *.log
+
+# Local publish/build artifacts
+.tmp/
+tmp_publish/
+__pycache__/

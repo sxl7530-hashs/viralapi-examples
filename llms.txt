@@ -25,6 +25,7 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 - FAQ: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/faq.md
 - SEO/GEO content strategy: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/seo-geo-content-strategy.md
+- Small-team multi-model API gateway architecture: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-14-small-team-multi-model-api-gateway-architecture.html
 - Claude API guide: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/keywords/claude-api-domestic-access.md
 - OpenAI-compatible API guide: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/keywords/openai-compatible-api-gateway.md
 - LLM API production checklist: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-11-llm-api-production-checklist.html

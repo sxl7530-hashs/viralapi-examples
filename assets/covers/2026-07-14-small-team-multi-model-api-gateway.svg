@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#1e293b"/>
+    </linearGradient>
+  </defs>
+  <rect width="1600" height="900" fill="url(#bg)"/>
+  <rect x="70" y="70" width="1460" height="760" rx="30" fill="#0f172a" stroke="#2dd4bf" stroke-width="4"/>
+  <text x="120" y="150" font-size="66" font-family="Arial, PingFang SC, sans-serif" font-weight="700" fill="#e5f9ff">ViralAPI</text>
+  <text x="420" y="150" font-size="34" font-family="Arial, PingFang SC, sans-serif" fill="#93c5fd">OpenAI-compatible Multi-Model Gateway</text>
+  <text x="120" y="245" font-size="64" font-family="Arial, PingFang SC, sans-serif" font-weight="700" fill="#f8fafc">小团队多模型 API 网关架构</text>
+  <text x="120" y="305" font-size="34" font-family="Arial, PingFang SC, sans-serif" fill="#cbd5e1">统一调用 Claude / GPT / Gemini</text>
+
+  <rect x="120" y="360" width="360" height="310" rx="22" fill="#111827" stroke="#22d3ee" stroke-width="3"/>
+  <text x="160" y="430" font-size="46" font-family="Arial, PingFang SC, sans-serif" font-weight="700" fill="#22d3ee">Claude</text>
+  <rect x="160" y="470" width="220" height="50" rx="14" fill="#1f2937"/><text x="180" y="504" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">客服主链路</text>
+  <rect x="160" y="540" width="220" height="50" rx="14" fill="#1f2937"/><text x="180" y="574" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">复杂推理</text>
+  <rect x="160" y="610" width="220" height="50" rx="14" fill="#1f2937"/><text x="180" y="644" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">稳定优先</text>
+
+  <rect x="620" y="360" width="360" height="310" rx="22" fill="#111827" stroke="#a78bfa" stroke-width="3"/>
+  <text x="660" y="430" font-size="46" font-family="Arial, PingFang SC, sans-serif" font-weight="700" fill="#c084fc">GPT</text>
+  <rect x="660" y="470" width="240" height="50" rx="14" fill="#1f2937"/><text x="680" y="504" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">结构化输出</text>
+  <rect x="660" y="540" width="240" height="50" rx="14" fill="#1f2937"/><text x="680" y="574" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">通用任务</text>
+  <rect x="660" y="610" width="240" height="50" rx="14" fill="#1f2937"/><text x="680" y="644" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">工具链兼容</text>
+
+  <rect x="1120" y="360" width="360" height="310" rx="22" fill="#111827" stroke="#f59e0b" stroke-width="3"/>
+  <text x="1160" y="430" font-size="46" font-family="Arial, PingFang SC, sans-serif" font-weight="700" fill="#fbbf24">Gemini</text>
+  <rect x="1160" y="470" width="220" height="50" rx="14" fill="#1f2937"/><text x="1180" y="504" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">Fallback</text>
+  <rect x="1160" y="540" width="220" height="50" rx="14" fill="#1f2937"/><text x="1180" y="574" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">批量任务</text>
+  <rect x="1160" y="610" width="220" height="50" rx="14" fill="#1f2937"/><text x="1180" y="644" font-size="28" font-family="Arial, PingFang SC, sans-serif" fill="#e5e7eb">多语言</text>
+
+  <line x1="480" y1="515" x2="620" y2="515" stroke="#38bdf8" stroke-width="6"/>
+  <line x1="980" y1="515" x2="1120" y2="515" stroke="#a78bfa" stroke-width="6"/>
+
+  <rect x="120" y="760" width="360" height="54" rx="18" fill="#14b8a6"/>
+  <text x="145" y="796" font-size="26" font-family="Arial, PingFang SC, sans-serif" fill="#07111f">AI客服 / 内容生成 / 数据分析</text>
+  <rect x="515" y="760" width="420" height="54" rx="18" fill="#8b5cf6"/>
+  <text x="540" y="796" font-size="26" font-family="Arial, PingFang SC, sans-serif" fill="#07111f">超时 / 重试 / Fallback / 成本路由</text>
+  <rect x="970" y="760" width="450" height="54" rx="18" fill="#f59e0b"/>
+  <text x="995" y="796" font-size="26" font-family="Arial, PingFang SC, sans-serif" fill="#07111f">福利1.5折 / 官转6折 / 稳定8折</text>
+</svg>
