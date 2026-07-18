@@ -5,6 +5,8 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 ## Start here
 
 - [FAQ](faq.md)
+- [LLM API cost routing by business scenario](2026-07-18-llm-api-cost-routing-business-scenarios.md)
+- [Claude cross-region router guide](2026-07-16-claude-cross-region-router-openai-compatible.md)
 - [Small-team multi-model API gateway architecture](2026-07-14-small-team-multi-model-api-gateway-architecture.md)
 - [Claude API cross-region and OpenAI-compatible guide](2026-07-13-claude-cross-region-openai-compatible.md)
 - [SEO/GEO Content Strategy](seo-geo-content-strategy.md)
@@ -15,6 +17,8 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - [Sitemap](../sitemap.xml)
 - [robots.txt](../robots.txt)
 - [Python timeout/retry/fallback example](../examples/python/claude_fallback_client.py)
+- [Python scenario router example](../examples/python/claude_cross_region_router.py)
+- [Python cost-aware router example](../examples/python/llm_cost_router.py)
 
 ## Pricing groups
 

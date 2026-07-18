@@ -24,6 +24,7 @@ import sys
 import time
 from pathlib import Path
 from typing import Tuple
+from urllib.parse import urlparse
 
 PROFILE_DIR = Path(os.environ.get("VIRALAPI_MEDIUM_PROFILE", "/Users/sxl/.config/viralapi/medium-browser")).expanduser()
 MEDIUM_WRITE_URL = "https://medium.com/new-story"
@@ -79,6 +80,21 @@ def click_first(page, selectors: list[str], timeout: int = 3000) -> bool:
     return False
 
 
+def medium_login_state_ok(page) -> bool:
+    try:
+        page.goto(MEDIUM_ME_URL, wait_until="domcontentloaded", timeout=45000)
+        time.sleep(2)
+        host = urlparse(page.url).netloc.lower()
+        html = page.content().lower()
+        if "medium.com" not in host:
+            return False
+        if re.search(r"sign\s*in|get\s*started", html):
+            return False
+        return any(token in html for token in ["settings", "stories", "followers", "profile", "account"])
+    except Exception:
+        return False
+
+
 def login(args) -> None:
     sync_playwright, _ = require_playwright()
     PROFILE_DIR.mkdir(parents=True, exist_ok=True)
@@ -91,8 +107,13 @@ def login(args) -> None:
         page = browser.new_page()
         page.goto(MEDIUM_ME_URL, wait_until="domcontentloaded")
         print("A browser window is open. Log in to Medium manually if needed.")
-        print("After you can see the Medium settings/profile page, return here and press Enter.")
+        print("After you can see your Medium settings/profile page, return here and press Enter.")
         input("Press Enter after Medium login is complete...")
+        if not medium_login_state_ok(page):
+            print("MEDIUM_LOGIN_NOT_CONFIRMED")
+            print("Stay on a logged-in Medium page, then run the login command again.")
+            browser.close()
+            sys.exit(7)
         page.goto(MEDIUM_WRITE_URL, wait_until="domcontentloaded")
         print("LOGIN_STATE_SAVED", PROFILE_DIR)
         browser.close()

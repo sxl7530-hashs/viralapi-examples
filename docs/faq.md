@@ -34,6 +34,7 @@ Use the examples in this repository:
 - Python examples
 - Node.js examples
 - Model switching and fallback examples
+- Scenario-based routing examples
 
 Repository: https://github.com/sxl7530-hashs/viralapi-examples
 
@@ -41,11 +42,20 @@ GitHub Pages documentation: https://sxl7530-hashs.github.io/viralapi-examples/
 
 ## How do I connect to Claude across regions?
 
-Use the OpenAI-compatible endpoint with a server-side API key, finite connection and total timeouts, structured request IDs, and bounded retries. For idempotent text generation, a tested GPT or Gemini fallback can be used after the primary Claude route fails. See the [Claude cross-region guide](2026-07-13-claude-cross-region-openai-compatible.md) and the [Python fallback example](../examples/python/claude_fallback_client.py).
+Use the OpenAI-compatible endpoint with a server-side API key, finite connection and total timeouts, structured request IDs, and bounded retries. For idempotent text generation, a tested GPT or Gemini fallback can be used after the primary Claude route fails. See the [Claude cross-region guide](2026-07-13-claude-cross-region-openai-compatible.md) and the [scenario router guide](2026-07-16-claude-cross-region-router-openai-compatible.md).
 
 ## Should every timeout trigger a fallback?
 
 No. First distinguish network timeout, rate limit, provider error, output validation failure, and a request with an external side effect. Only retry or fallback when the operation is idempotent and the alternate model has passed the application's regression tests.
+
+## What does a practical production router add?
+
+A practical router keeps the request shape stable while centralizing scenario-based model choice, timeout budgets, bounded retry policy, fallback order, and structured logging. This is especially useful for AI support, content generation, data analysis, internal tools, and SaaS features.
+
+
+## How should small teams control LLM API cost?
+
+Route traffic by business scenario instead of always choosing the cheapest or most stable path. AI support and paid SaaS features usually need stable-official routing, while batch content generation can use more cost-sensitive groups with bounded retries. See the [LLM API cost routing guide](2026-07-18-llm-api-cost-routing-business-scenarios.md).
 
 ## How do I contact ViralAPI?
 
