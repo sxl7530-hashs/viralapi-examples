@@ -4,6 +4,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 
 ## Start here
 
+- [ViralAPI FAQ, troubleshooting and production launch checklist](2026-07-19-faq-troubleshooting-launch-checklist.md)
 - [FAQ](faq.md)
 - [LLM API cost routing by business scenario](2026-07-18-llm-api-cost-routing-business-scenarios.md)
 - [Claude cross-region router guide](2026-07-16-claude-cross-region-router-openai-compatible.md)
