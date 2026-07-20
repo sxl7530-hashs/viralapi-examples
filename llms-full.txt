@@ -59,3 +59,5 @@ Cost-sensitive scenarios can consider the welfare group; official-transfer scena
 
 ### Does OpenAI-compatible mean every model behaves identically?
 No. It provides a common integration boundary for authentication and common request/response shapes. Model names, context limits, tool calling, output behavior, and billing still require explicit configuration and regression tests.
+
+- Claude OpenAI-compatible production routing: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-20-claude-openai-compatible-production-routing.html

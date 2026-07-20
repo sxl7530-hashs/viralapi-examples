@@ -34,3 +34,5 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - Email: miutayoung@gmail.com
 - Telegram: viral_8866
 - WeChat: viral_8866
+
+- [Claude API 国内/跨区接入：OpenAI-compatible 封装、成本路由与生产排障](2026-07-20-claude-openai-compatible-production-routing.md)
