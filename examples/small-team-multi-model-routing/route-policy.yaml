@@ -1,0 +1,46 @@
+# Multi-model route policy for ViralAPI
+# Business services should reference route names, not provider-specific endpoints.
+
+routes:
+  ai_support_reply:
+    purpose: Real-time customer support reply suggestions
+    primary_slo_ms: 45000
+    candidates:
+      - model: claude-sonnet-4
+        group: stable-official
+        timeout_ms: 35000
+      - model: gpt-4.1-mini
+        group: official-transfer
+        timeout_ms: 25000
+      - model: gemini-2.5-flash
+        group: welfare
+        timeout_ms: 20000
+    retryable_status: [408, 429, 500, 502, 503, 504]
+    log_fields: [request_id, tenant_id, ticket_id, route, model, cost_group, latency_ms, retry_count, degraded]
+
+  bulk_content_generation:
+    purpose: Batch SEO/GEO drafts, summaries, rewrites
+    primary_slo_ms: 120000
+    candidates:
+      - model: gemini-2.5-flash
+        group: welfare
+        timeout_ms: 30000
+      - model: gpt-4.1-mini
+        group: official-transfer
+        timeout_ms: 30000
+    queue_required: true
+    max_attempts: 3
+    log_fields: [request_id, batch_id, route, model, cost_group, tokens, attempts, final_status]
+
+  data_analysis:
+    purpose: Structured analysis and SQL/report drafts
+    primary_slo_ms: 60000
+    candidates:
+      - model: claude-sonnet-4
+        group: stable-official
+        timeout_ms: 40000
+      - model: gpt-4.1-mini
+        group: official-transfer
+        timeout_ms: 30000
+    output_validation: json_schema_required
+    log_fields: [request_id, tenant_id, dataset_id, route, model, schema_valid, retry_count]
