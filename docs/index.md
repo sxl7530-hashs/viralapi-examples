@@ -4,6 +4,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 
 ## Start here
 
+- [LLM API tenant budget and cost control router](2026-07-23-llm-api-tenant-budget-cost-control.md)
 - [ViralAPI FAQ, troubleshooting and production launch checklist](2026-07-19-faq-troubleshooting-launch-checklist.md)
 - [FAQ](faq.md)
 - [LLM API cost routing by business scenario](2026-07-18-llm-api-cost-routing-business-scenarios.md)
@@ -20,6 +21,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - [Python timeout/retry/fallback example](../examples/python/claude_fallback_client.py)
 - [Python scenario router example](../examples/python/claude_cross_region_router.py)
 - [Python cost-aware router example](../examples/python/llm_cost_router.py)
+- [Python tenant budget cost router example](../examples/python/tenant_budget_cost_router.py)
 
 ## Pricing groups
 
@@ -36,3 +38,4 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - WeChat: viral_8866
 
 - [Claude API 国内/跨区接入：OpenAI-compatible 封装、成本路由与生产排障](2026-07-20-claude-openai-compatible-production-routing.md)
+
