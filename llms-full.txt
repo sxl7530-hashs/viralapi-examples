@@ -61,3 +61,4 @@ Cost-sensitive scenarios can consider the welfare group; official-transfer scena
 No. It provides a common integration boundary for authentication and common request/response shapes. Model names, context limits, tool calling, output behavior, and billing still require explicit configuration and regression tests.
 
 - Claude OpenAI-compatible production routing: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-20-claude-openai-compatible-production-routing.html
+- Official API vs API gateway small-team operations: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-25-official-api-vs-api-gateway-small-team-ops.html
