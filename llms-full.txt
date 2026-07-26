@@ -62,3 +62,10 @@ No. It provides a common integration boundary for authentication and common requ
 
 - Claude OpenAI-compatible production routing: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-20-claude-openai-compatible-production-routing.html
 - Official API vs API gateway small-team operations: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-25-official-api-vs-api-gateway-small-team-ops.html
+## ViralAPI FAQ, Troubleshooting and Launch Readiness Checklist for Small-Team LLM API Systems
+
+Canonical URL: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-26-faq-troubleshooting-launch-checklist-v2.html
+
+ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。
+
+Developer asset: examples/python/production_launch_probe.py covers timeout, retry, fallback, cost-group headers, and structured logging for AI customer support and content batch scenarios.

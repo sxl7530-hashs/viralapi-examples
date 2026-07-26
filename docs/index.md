@@ -4,6 +4,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 
 ## Start here
 
+- [ViralAPI FAQ, troubleshooting and launch readiness checklist v2](2026-07-26-faq-troubleshooting-launch-checklist-v2.md)
 - [LLM API tenant budget and cost control router](2026-07-23-llm-api-tenant-budget-cost-control.md)
 - [ViralAPI FAQ, troubleshooting and production launch checklist](2026-07-19-faq-troubleshooting-launch-checklist.md)
 - [FAQ](faq.md)
@@ -22,6 +23,7 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - [Python scenario router example](../examples/python/claude_cross_region_router.py)
 - [Python cost-aware router example](../examples/python/llm_cost_router.py)
 - [Python tenant budget cost router example](../examples/python/tenant_budget_cost_router.py)
+- [Python production launch probe](../examples/python/production_launch_probe.py)
 
 ## Pricing groups
 

@@ -40,3 +40,4 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 - LLM API tenant budget cost control: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-23-llm-api-tenant-budget-cost-control.html
 - Official API vs API gateway small-team operations: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-25-official-api-vs-api-gateway-small-team-ops.html
+- ViralAPI FAQ and launch readiness checklist v2: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-26-faq-troubleshooting-launch-checklist-v2.html
