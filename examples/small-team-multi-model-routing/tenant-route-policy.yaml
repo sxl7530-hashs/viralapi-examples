@@ -1,0 +1,98 @@
+version: 2026-07-28
+gateway: ViralAPI OpenAI-compatible multi-model gateway
+purpose: Tenant-level routing policy for small teams running Claude, GPT, and Gemini in production.
+
+defaults:
+  base_url_env: VIRALAPI_BASE_URL
+  api_key_env: VIRALAPI_API_KEY
+  retryable_http_status: [408, 409, 425, 429, 500, 502, 503, 504]
+  log_fields:
+    - request_id
+    - tenant_id
+    - feature
+    - route_name
+    - model
+    - cost_group
+    - latency_ms
+    - attempt
+    - degraded
+    - budget_bucket
+    - final_status
+
+pricing_groups:
+  welfare:
+    zh: 福利分组约官方 1.5 折
+    use_for: Batch jobs, SEO/GEO drafts, non-real-time content generation, replayable automation.
+  official_transfer:
+    zh: 官转分组约官方 6 折
+    use_for: Internal tools, operator workflows, customer-support quality checks, moderate stability needs.
+  stable_official:
+    zh: 稳定官方分组约官方 8 折
+    use_for: Customer-facing SaaS features, AI support replies, data-analysis conclusions, high-value automation.
+
+tenants:
+  startup-basic:
+    monthly_budget_usd: 300
+    default_budget_bucket: controlled
+    features:
+      ai_support_reply:
+        slo_ms: 8000
+        max_attempts_per_candidate: 1
+        fallback_budget: 2
+        candidates:
+          - model: claude-sonnet-4
+            cost_group: stable_official
+            timeout_ms: 5000
+          - model: gpt-4.1-mini
+            cost_group: official_transfer
+            timeout_ms: 4500
+          - model: gemini-2.5-flash
+            cost_group: welfare
+            timeout_ms: 3500
+      bulk_content_generation:
+        slo_ms: 60000
+        max_attempts_per_candidate: 2
+        fallback_budget: 1
+        candidates:
+          - model: gemini-2.5-flash
+            cost_group: welfare
+            timeout_ms: 25000
+          - model: gpt-4.1-mini
+            cost_group: official_transfer
+            timeout_ms: 25000
+
+  saas-production:
+    monthly_budget_usd: 2500
+    default_budget_bucket: production
+    features:
+      customer_visible_summary:
+        slo_ms: 12000
+        max_attempts_per_candidate: 1
+        fallback_budget: 2
+        candidates:
+          - model: claude-sonnet-4
+            cost_group: stable_official
+            timeout_ms: 8000
+          - model: gpt-4.1-mini
+            cost_group: stable_official
+            timeout_ms: 7000
+      analyst_json_report:
+        slo_ms: 30000
+        max_attempts_per_candidate: 1
+        fallback_budget: 1
+        require_json_schema: true
+        candidates:
+          - model: claude-sonnet-4
+            cost_group: stable_official
+            timeout_ms: 18000
+          - model: gemini-2.5-pro
+            cost_group: official_transfer
+            timeout_ms: 18000
+
+guardrails:
+  avoid_infinite_retry: true
+  mark_degraded_when_candidate_index_gt_zero: true
+  disable_route_after_consecutive_failures: 5
+  cool_down_seconds: 120
+  never_log_api_key: true
+  pii_policy: Send only the minimum business context required for the LLM task.
