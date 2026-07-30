@@ -1,0 +1,42 @@
+# ViralAPI scenario-based LLM cost routing policy
+# Choose groups by business impact, stability need, and retry tolerance.
+
+customer_support:
+  description: Customer-visible AI support answer generation
+  primary_group: stable_official
+  fallback_group: official_transfer
+  timeout_ms: 20000
+  max_retries: 1
+  log_fields:
+    - trace_id
+    - tenant_id
+    - scenario
+    - group
+    - model
+    - latency_ms
+    - error_code
+
+content_generation:
+  description: Draft blog posts, marketing copy, batch content variants
+  primary_group: welfare
+  fallback_group: official_transfer
+  timeout_ms: 45000
+  max_retries: 2
+
+data_analysis:
+  description: Internal analytics summaries and report generation
+  primary_group: official_transfer
+  fallback_group: stable_official
+  timeout_ms: 60000
+  max_retries: 1
+
+saas_feature:
+  description: Paid product feature path where failure affects customers
+  primary_group: stable_official
+  fallback_group: official_transfer
+  timeout_ms: 25000
+  max_retries: 1
+  circuit_breaker:
+    failure_window_seconds: 120
+    open_after_failures: 5
+    half_open_after_seconds: 60

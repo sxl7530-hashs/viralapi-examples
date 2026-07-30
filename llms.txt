@@ -43,3 +43,4 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 - ViralAPI FAQ and launch readiness checklist v2: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-26-faq-troubleshooting-launch-checklist-v2.html
 - Claude cross-region OpenAI-compatible routing: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-27-claude-cross-region-openai-compatible-routing.html
 - Small-team tenant routing observability: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-28-small-team-tenant-routing-observability.html
+- LLM API cost control scenario routing: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-30-llm-api-cost-control-scenario-routing.html
