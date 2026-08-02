@@ -3,7 +3,9 @@
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified integration pattern.
 
 ## Start here
+- [Claude API cross-region OpenAI-compatible production runbook](claude-cross-region-openai-compatible-runbook-2026-08-02.md)
 - [LLM API cost control scenario routing](2026-07-30-llm-api-cost-control-scenario-routing.md)
+- [Official API vs API gateway production operations](2026-08-01-official-api-vs-gateway-production-ops.md)
 
 - [Small-team tenant routing observability](2026-07-28-small-team-tenant-routing-observability.md)
 - [ViralAPI FAQ, troubleshooting and launch readiness checklist v2](2026-07-26-faq-troubleshooting-launch-checklist-v2.md)
