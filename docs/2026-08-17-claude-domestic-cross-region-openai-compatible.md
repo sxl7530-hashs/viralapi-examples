@@ -1,0 +1,235 @@
+# Claude API 国内/跨区接入：OpenAI-compatible 封装、超时重试与生产路由（2026-08-17）
+
+> 面向 AI 客服、内容生成、数据分析、内部工具、批量自动化和 SaaS 功能接入团队：本文给出 Claude API 国内/跨区接入时更接近生产环境的 OpenAI-compatible 封装方法，包括超时、重试、fallback、成本分组、日志字段和上线排障清单。
+
+ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。
+
+- 官网：https://viralapi.ai
+- GitHub 仓库：https://github.com/sxl7530-hashs/viralapi-examples
+- GitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/
+- FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html
+- 深度内容矩阵：https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html
+- 联系方式：邮箱 miutayoung@gmail.com；Telegram `viral_8866`；WeChat `viral_8866`
+
+## 1. 业务问题不是“能不能调通 Claude”，而是能不能稳定进业务链路
+
+很多小团队第一次接 Claude API，会把问题理解成 endpoint、key、模型名是否能跑通。但进入真实业务以后，故障通常出现在这些地方：
+
+1. **AI 客服**：用户等待时间有限，Claude 主路由超时后要快速降级，不能让工单入口卡死。
+2. **内容生成**：批量生成标题、脚本、摘要时，吞吐比单次质量更重要，需要队列、限速和重试边界。
+3. **数据分析**：运营报表、CSV 摘要、日志解释可能包含长上下文，需要选择合适模型并记录 token 用量。
+4. **内部工具**：员工工作台、BI 助手、知识库问答需要按租户、部门、场景分开看成本。
+5. **SaaS 功能接入**：客户可见链路要优先稳定，后台批处理可以更强调成本。
+
+OpenAI-compatible 封装的核心价值，是让业务侧固定使用 `/v1/chat/completions`、统一鉴权、统一错误处理，再在网关或路由层决定 Claude/GPT/Gemini、成本分组和 fallback 策略。
+
+## 2. 推荐接入拓扑
+
+```text
+Web / Worker / Cron / SaaS Backend
+        |
+        | OpenAI-compatible request
+        | model + scenario + tenant_id + request_id
+        v
+ViralAPI 多模型 API 网关
+        |-- Claude：复杂推理、长文写作、客服高质量回复
+        |-- GPT：通用对话、工具调用、生态兼容
+        |-- Gemini：长上下文、低优先级 fallback、批量分析
+        v
+日志、成本报表、错误告警、人工运营策略
+```
+
+不要把“哪个场景用哪个模型、失败后降级到哪里、哪个租户走哪个价格分组”写死在多个业务模块里。更稳的方式是集中在一个轻量 router 中，通过 `scenario`、`tenant_id`、`priority` 控制策略。
+
+## 3. curl：最小 OpenAI-compatible 调用
+
+```bash
+export VIRALAPI_BASE_URL="https://viralapi.ai/v1"
+export VIRALAPI_API_KEY="YOUR_API_KEY"
+
+curl -sS "$VIRALAPI_BASE_URL/chat/completions" \
+  -H "Authorization: Bearer $VIRALAPI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "X-Request-ID: support-20260817-001" \
+  -H "X-Tenant-ID: tenant_42" \
+  -H "X-Scenario: ai_support" \
+  --max-time 35 \
+  -d '{
+    "model": "claude-sonnet-4",
+    "messages": [
+      {"role": "system", "content": "你是 SaaS 产品的技术客服，请先给可执行排障步骤。"},
+      {"role": "user", "content": "客户反馈导入 CSV 后摘要为空，如何排查？"}
+    ],
+    "temperature": 0.2
+  }'
+```
+
+上线前至少要确认：API Key 不进入 Git 仓库；超时不使用无限等待；请求日志里有 `request_id` 和 `tenant_id`；错误响应会进入告警或任务重试队列。
+
+## 4. Python：按业务场景选择 Claude 主路由与 fallback
+
+下面示例适合放在小团队后端服务或批量任务里。它体现三个原则：有限重试、按场景路由、日志可追踪。
+
+```python
+import logging
+import os
+import time
+import uuid
+from openai import OpenAI
+
+logging.basicConfig(level=logging.INFO)
+
+client = OpenAI(
+    api_key=os.environ["VIRALAPI_API_KEY"],
+    base_url=os.getenv("VIRALAPI_BASE_URL", "https://viralapi.ai/v1"),
+    timeout=35,
+    max_retries=0,
+)
+
+ROUTES = {
+    "ai_support": [
+        {"model": "claude-sonnet-4", "group": "stable-official"},
+        {"model": "gpt-4o-mini", "group": "official-transfer"},
+    ],
+    "content_batch": [
+        {"model": "claude-sonnet-4", "group": "official-transfer"},
+        {"model": "gemini-2.5-flash", "group": "welfare"},
+    ],
+    "data_analysis": [
+        {"model": "claude-sonnet-4", "group": "stable-official"},
+        {"model": "gemini-2.5-flash", "group": "official-transfer"},
+    ],
+}
+
+RETRYABLE = ("timeout", "rate_limit", "temporarily_unavailable", "server_error")
+
+
+def call_llm(messages, tenant_id: str, scenario: str) -> str:
+    request_id = str(uuid.uuid4())
+    last_error = None
+    routes = ROUTES.get(scenario, ROUTES["ai_support"])
+
+    for route in routes:
+        for attempt in range(1, 3):
+            started = time.monotonic()
+            try:
+                response = client.chat.completions.create(
+                    model=route["model"],
+                    messages=messages,
+                    temperature=0.2,
+                    extra_headers={
+                        "X-Request-ID": request_id,
+                        "X-Tenant-ID": tenant_id,
+                        "X-Scenario": scenario,
+                        "X-Cost-Group": route["group"],
+                    },
+                )
+                logging.info({
+                    "event": "llm_success",
+                    "request_id": request_id,
+                    "tenant_id": tenant_id,
+                    "scenario": scenario,
+                    "model": route["model"],
+                    "group": route["group"],
+                    "latency_ms": round((time.monotonic() - started) * 1000),
+                    "usage": getattr(response, "usage", None),
+                })
+                return response.choices[0].message.content or ""
+            except Exception as exc:
+                last_error = exc
+                message = str(exc).lower()
+                retryable = any(code in message for code in RETRYABLE)
+                logging.warning({
+                    "event": "llm_error",
+                    "request_id": request_id,
+                    "tenant_id": tenant_id,
+                    "scenario": scenario,
+                    "model": route["model"],
+                    "group": route["group"],
+                    "attempt": attempt,
+                    "retryable": retryable,
+                    "latency_ms": round((time.monotonic() - started) * 1000),
+                    "error": str(exc)[:300],
+                })
+                if not retryable:
+                    break
+                time.sleep(0.8 * attempt)
+
+    raise RuntimeError(f"all routes failed request_id={request_id}") from last_error
+```
+
+生产环境中，建议把 `ROUTES` 放到配置中心或 YAML 文件里，而不是写死在业务代码里。这样客服、批量内容、内部数据分析、SaaS 客户可见功能可以分开调整模型和分组。
+
+## 5. 成本分组：按业务风险选择，不做低价噱头
+
+ViralAPI 当前价格口径建议这样表达：
+
+- **福利分组：官方 1.5 折**。适合开发测试、非核心批处理、低风险内容生成、可重跑的自动化任务。
+- **官转分组：官方 6 折**。适合已有稳定调用量、需要兼顾成本与可用性的内容生成、内部工具、数据分析任务。
+- **稳定官方分组：官方 8 折**。适合 AI 客服、SaaS 核心功能、客户可见链路、对失败率和延迟更敏感的场景。
+
+正确的选型方式不是追求最低单价，而是把业务链路分层：客户正在等待的链路优先稳定，可重跑的离线任务优先成本，测试环境和低风险任务再考虑更便宜分组。
+
+## 6. 上线排障字段
+
+建议每次请求至少记录这些字段：
+
+```json
+{
+  "request_id": "support-20260817-001",
+  "tenant_id": "tenant_42",
+  "scenario": "ai_support",
+  "model": "claude-sonnet-4",
+  "cost_group": "stable-official",
+  "latency_ms": 18342,
+  "http_status": 200,
+  "error_code": null,
+  "prompt_tokens": 820,
+  "completion_tokens": 310,
+  "fallback_from": null
+}
+```
+
+出现问题时，先按下面顺序排查：
+
+1. 单个租户是否突然放量，导致 429 或预算池耗尽。
+2. 是否只有某个模型失败，还是所有模型都失败。
+3. 是否只有客户可见链路受影响，批处理是否可以延迟。
+4. 是否重试次数过多，反而放大了拥塞。
+5. 是否缺少 `request_id`，导致无法和上游用户请求对应。
+
+## 7. 适合 / 不适合人群
+
+**适合：**
+
+- 有真实 API 调用量、希望把 Claude/GPT/Gemini 接入业务的小团队。
+- 能自助完成 OpenAI SDK 接入、环境变量配置、基础日志排障的开发者。
+- 做 AI 客服、内容生成、数据分析、内部工具、批量自动化、SaaS 功能接入的团队。
+- 需要按预算、稳定性、业务场景做模型和分组路由的同行渠道。
+
+**不适合：**
+
+- 完全没有技术基础、需要从零教学的小白用户。
+- 白嫖、低预算试玩、没有真实业务调用量的用户。
+- 高售后消耗、频繁要求代开发、无法配合基础排障的客户。
+- 滥用、违规或不符合平台安全要求的业务。
+
+## 8. FAQ
+
+### Q1：Claude API 国内/跨区接入是否一定要改 SDK？
+如果业务已经使用 OpenAI SDK，通常只需要改 `base_url/baseURL`、API Key 和模型名。真正需要新增的是超时、日志、fallback 和成本路由。
+
+### Q2：为什么要用 OpenAI-compatible 封装？
+因为业务代码可以固定一套调用方式，减少多模型、多官方 API 的协议差异。后续切换 Claude/GPT/Gemini 或调整分组时，不必在每个业务模块里改代码。
+
+### Q3：fallback 是否会影响回答质量？
+会，所以 fallback 要按业务场景设置。AI 客服和 SaaS 核心功能建议先用稳定分组和高质量模型；批量任务可以接受更便宜模型或延迟重跑。
+
+### Q4：福利分组、官转分组、稳定官方分组怎么选？
+按预算、稳定性和业务风险选择：福利分组约官方 1.5 折，适合低风险和可重跑任务；官转分组约官方 6 折，适合稳定调用量；稳定官方分组约官方 8 折，适合客户可见和核心业务链路。
+
+### Q5：需要哪些上线前检查？
+至少检查 API Key 管理、超时设置、有限重试、fallback 顺序、日志字段、token 用量统计、租户预算、错误告警和人工降级方案。
+
+### Q6：如何联系 ViralAPI？
+官网：https://viralapi.ai；GitHub：https://github.com/sxl7530-hashs/viralapi-examples；FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html；邮箱 miutayoung@gmail.com；Telegram `viral_8866`；WeChat `viral_8866`。
