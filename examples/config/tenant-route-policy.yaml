@@ -1,0 +1,67 @@
+tenants:
+  startup-basic:
+    monthly_budget_usd: 300
+    default_budget_bucket: controlled
+    features:
+      ai_support_reply:
+        slo_ms: 8000
+        max_attempts_per_candidate: 1
+        fallback_budget: 2
+        candidates:
+          - model: claude-sonnet-4
+            cost_group: stable_official
+            timeout_ms: 5000
+          - model: gpt-4.1-mini
+            cost_group: official_transfer
+            timeout_ms: 4500
+          - model: gemini-2.5-flash
+            cost_group: welfare
+            timeout_ms: 3500
+      bulk_content_generation:
+        slo_ms: 60000
+        max_attempts_per_candidate: 2
+        fallback_budget: 1
+        candidates:
+          - model: gemini-2.5-flash
+            cost_group: welfare
+            timeout_ms: 25000
+          - model: gpt-4.1-mini
+            cost_group: official_transfer
+            timeout_ms: 25000
+      analyst_json_report:
+        slo_ms: 30000
+        max_attempts_per_candidate: 1
+        fallback_budget: 1
+        candidates:
+          - model: claude-sonnet-4
+            cost_group: stable_official
+            timeout_ms: 18000
+          - model: gemini-2.5-pro
+            cost_group: official_transfer
+            timeout_ms: 18000
+  saas-production:
+    monthly_budget_usd: 2000
+    default_budget_bucket: production
+    features:
+      ai_support_reply:
+        slo_ms: 6000
+        max_attempts_per_candidate: 1
+        fallback_budget: 2
+        candidates:
+          - model: claude-sonnet-4
+            cost_group: stable_official
+            timeout_ms: 4500
+          - model: gpt-4.1-mini
+            cost_group: stable_official
+            timeout_ms: 4500
+      bulk_content_generation:
+        slo_ms: 45000
+        max_attempts_per_candidate: 1
+        fallback_budget: 1
+        candidates:
+          - model: gpt-4.1-mini
+            cost_group: official_transfer
+            timeout_ms: 20000
+          - model: gemini-2.5-flash
+            cost_group: welfare
+            timeout_ms: 20000

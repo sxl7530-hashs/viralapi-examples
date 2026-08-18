@@ -60,15 +60,60 @@ ROUTES: dict[str, dict[str, Any]] = {
 }
 
 
+def _load_policy_with_stdlib(policy_path: str) -> dict[str, Any]:
+    """Parse the simple route-policy YAML used by this repository.
+
+    PyYAML is preferred when installed. This fallback intentionally supports only
+    the small subset used in examples/config/tenant-route-policy.yaml.
+    """
+    raw: dict[str, Any] = {"tenants": {}}
+    current_tenant: dict[str, Any] | None = None
+    current_feature: dict[str, Any] | None = None
+    current_candidate: dict[str, Any] | None = None
+
+    for line in Path(policy_path).read_text().splitlines():
+        if not line.strip() or line.lstrip().startswith("#"):
+            continue
+        indent = len(line) - len(line.lstrip(" "))
+        text = line.strip()
+        if text == "tenants:" or text == "features:" or text == "candidates:":
+            continue
+        if ":" not in text:
+            continue
+        key, value = text.split(":", 1)
+        key = key.lstrip("- ").strip()
+        value = value.strip()
+        parsed: Any = int(value) if value.isdigit() else value
+
+        if indent == 2:
+            current_tenant = {"features": {}}
+            raw["tenants"][key] = current_tenant
+        elif indent == 4 and current_tenant is not None:
+            if key not in {"features"}:
+                current_tenant[key] = parsed
+        elif indent == 6 and current_tenant is not None:
+            current_feature = {"candidates": []}
+            current_tenant["features"][key] = current_feature
+        elif indent == 8 and current_feature is not None:
+            current_feature[key] = parsed
+        elif indent == 10 and current_feature is not None and text.startswith("-"):
+            current_candidate = {key: parsed}
+            current_feature["candidates"].append(current_candidate)
+        elif indent == 12 and current_candidate is not None:
+            current_candidate[key] = parsed
+    return raw
+
+
 def load_routes(policy_path: str | None, tenant_id: str) -> dict[str, dict[str, Any]]:
     if not policy_path:
         return ROUTES
     try:
         import yaml  # type: ignore[import-not-found]
-    except ImportError as exc:
-        raise RuntimeError("--policy requires PyYAML: python3 -m pip install pyyaml") from exc
 
-    raw = yaml.safe_load(Path(policy_path).read_text())
+        raw = yaml.safe_load(Path(policy_path).read_text())
+    except ImportError:
+        raw = _load_policy_with_stdlib(policy_path)
+
     if not isinstance(raw, dict):
         raise RuntimeError(f"policy file is not a YAML object: {policy_path}")
     tenant = raw.get("tenants", {}).get(tenant_id, {})

@@ -41,12 +41,14 @@ You can find the correct endpoint and API key in the ViralAPI website/dashboard 
 ## Business scenarios
 
 - [Content generation pipeline: batching, retry, rate limits, and cost control](docs/business-scenarios/content-generation-pipeline-cost-control.md)
+- [Small-team multi-model API gateway architecture: tenant routing, fallback, and observability](docs/2026-08-18-small-team-multimodel-api-gateway-architecture.md)
 
 ## Examples
 
 - [curl example](examples/curl/chat-completions.sh)
 - [Python example](examples/python/chat_completions.py)
 - [Node.js example](examples/node/chat-completions.mjs)
+- [Tenant route policy](examples/config/tenant-route-policy.yaml)
 
 ## curl
 
