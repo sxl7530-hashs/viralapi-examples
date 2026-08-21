@@ -3,6 +3,8 @@
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified integration pattern.
 
 ## Start here
+- [Python/Node.js SDK production integration: env vars, retries, logs and rate limits](2026-08-21-python-node-sdk-production.md)
+- [Gemini fallback, timeout, retry and circuit breaker production guide](2026-08-19-gemini-fallback-circuit-breaker.md)
 - [Claude API domestic/cross-region OpenAI-compatible production routing 2026-08-17](2026-08-17-claude-domestic-cross-region-openai-compatible.md)
 - [Claude API cross-region OpenAI-compatible production runbook](claude-cross-region-openai-compatible-runbook-2026-08-02.md)
 - [LLM API cost control scenario routing](2026-07-30-llm-api-cost-control-scenario-routing.md)
@@ -30,6 +32,8 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - [Python tenant budget cost router example](../examples/python/tenant_budget_cost_router.py)
 - [Python production launch probe](../examples/python/production_launch_probe.py)
 - [Python tenant route observability example](../examples/python/tenant_route_observability.py)
+- [Python Gemini fallback and circuit breaker example](../examples/python/gemini_fallback_circuit_breaker.py)
+- [Python SDK production client example](../examples/python/sdk_production_client.py)
 - [Tenant route policy YAML](../examples/small-team-multi-model-routing/tenant-route-policy.yaml)
 - [Cost group routing policy YAML](../examples/small-team-multi-model-routing/cost-group-policy.yaml)
 
