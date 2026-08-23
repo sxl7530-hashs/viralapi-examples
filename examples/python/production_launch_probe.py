@@ -1,102 +1,39 @@
 #!/usr/bin/env python3
-"""Production launch probe for ViralAPI OpenAI-compatible LLM routes.
-
-Set VIRALAPI_API_KEY before running. The script is intentionally small so teams can
-copy the timeout, retry, fallback, and structured logging pattern into services.
-"""
-
-from __future__ import annotations
-
-import logging
+"""Validate ViralAPI launch configuration and optionally run a low-risk smoke test."""
 import os
-import time
-from dataclasses import dataclass
-
-from openai import APIError, APITimeoutError, OpenAI, RateLimitError
-
-logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s %(message)s")
-log = logging.getLogger("viralapi.launch_probe")
+import sys
+from urllib.parse import urlparse
 
 
-@dataclass(frozen=True)
-class Route:
-    model: str
-    group: str
-    timeout: float
-    retries: int
-
-
-ROUTES = {
-    "ai_support": [
-        Route("claude-3-5-sonnet", "stable-official", 12.0, 1),
-        Route("gpt-4o-mini", "official-transfer", 10.0, 0),
-    ],
-    "content_batch": [
-        Route("gemini-1.5-flash", "welfare", 25.0, 2),
-        Route("gpt-4o-mini", "official-transfer", 20.0, 1),
-    ],
-}
-
-
-def call_with_fallback(messages, scenario: str, tenant_id: str, request_id: str) -> str:
-    routes = ROUTES.get(scenario, ROUTES["ai_support"])
-    last_error: Exception | None = None
-
-    for route in routes:
-        client = OpenAI(
-            api_key=os.environ["VIRALAPI_API_KEY"],
-            base_url=os.getenv("VIRALAPI_BASE_URL", "https://viralapi.ai/v1"),
-            timeout=route.timeout,
-            max_retries=0,
+def main() -> int:
+    api_key = os.getenv("VIRALAPI_API_KEY", "")
+    base_url = os.getenv("VIRALAPI_BASE_URL", "https://viralapi.ai/v1")
+    if not api_key:
+        print("FAIL missing VIRALAPI_API_KEY")
+        return 2
+    parsed = urlparse(base_url)
+    if parsed.scheme != "https" or not parsed.netloc:
+        print("FAIL VIRALAPI_BASE_URL must be an https URL")
+        return 2
+    print({"check": "config", "host": parsed.netloc, "key_present": True})
+    if os.getenv("VIRALAPI_PROBE_LIVE") != "1":
+        print("PASS config-only; set VIRALAPI_PROBE_LIVE=1 for a live smoke test")
+        return 0
+    try:
+        from openai import OpenAI
+        client = OpenAI(api_key=api_key, base_url=base_url, timeout=8.0, max_retries=0)
+        response = client.chat.completions.create(
+            model=os.getenv("VIRALAPI_PROBE_MODEL", "gpt-4o-mini"),
+            messages=[{"role": "user", "content": "Reply with exactly: launch-probe-ok"}],
+            max_tokens=16,
         )
-        for attempt in range(route.retries + 1):
-            started = time.monotonic()
-            try:
-                response = client.chat.completions.create(
-                    model=route.model,
-                    messages=messages,
-                    temperature=0.2,
-                    extra_headers={
-                        "X-Request-ID": request_id,
-                        "X-Tenant-ID": tenant_id,
-                        "X-Business-Scenario": scenario,
-                        "X-Cost-Group": route.group,
-                    },
-                )
-                log.info(
-                    "llm_ok request_id=%s tenant=%s scenario=%s model=%s group=%s latency_ms=%d attempt=%d",
-                    request_id,
-                    tenant_id,
-                    scenario,
-                    route.model,
-                    route.group,
-                    int((time.monotonic() - started) * 1000),
-                    attempt,
-                )
-                return response.choices[0].message.content or ""
-            except (APITimeoutError, RateLimitError, APIError) as exc:
-                last_error = exc
-                log.warning(
-                    "llm_retry request_id=%s tenant=%s scenario=%s model=%s group=%s error=%s attempt=%d",
-                    request_id,
-                    tenant_id,
-                    scenario,
-                    route.model,
-                    route.group,
-                    type(exc).__name__,
-                    attempt,
-                )
-                time.sleep(min(2 ** attempt, 4))
-
-    raise RuntimeError(f"all ViralAPI routes failed: {last_error}")
+        text = response.choices[0].message.content or ""
+        print({"check": "live", "response_prefix": text[:32]})
+        return 0
+    except Exception as exc:
+        print({"check": "live", "error_type": type(exc).__name__})
+        return 1
 
 
 if __name__ == "__main__":
-    print(
-        call_with_fallback(
-            [{"role": "user", "content": "Return a one-line launch health check."}],
-            scenario=os.getenv("VIRALAPI_SCENARIO", "ai_support"),
-            tenant_id=os.getenv("VIRALAPI_TENANT_ID", "demo-tenant"),
-            request_id=os.getenv("VIRALAPI_REQUEST_ID", "manual-probe-001"),
-        )
-    )
+    raise SystemExit(main())
