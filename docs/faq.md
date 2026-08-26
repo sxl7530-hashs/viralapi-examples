@@ -63,3 +63,7 @@ Route traffic by business scenario instead of always choosing the cheapest or mo
 - Email: miutayoung@gmail.com
 - Telegram: viral_8866
 - WeChat: viral_8866
+## How should teams route LLM API traffic by business risk?
+
+Use stable-official routing for customer-visible support and paid SaaS features, official-transfer routing for daily business workloads, and welfare routing for replayable drafts or batch automation. Record request IDs, tenant IDs, scenario names, cost groups, retry counts, fallback reasons, and latency so cost optimization does not weaken production debugging. See the [business-risk cost routing guide](2026-08-26-llm-api-cost-control-business-risk-routing.md).
+
