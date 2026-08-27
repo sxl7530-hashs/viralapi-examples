@@ -48,6 +48,7 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Python/Node.js SDK error handling, rate limits and structured logs (2026-08-27): https://sxl7530-hashs.github.io/viralapi-examples/2026-08-27-python-node-sdk-error-handling-rate-limit-logs.html
 - Small-team multi-model gateway tenant routing and observability (2026-08-25): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-08-25-small-team-multimodel-api-gateway-tenant-routing.md
 - https://sxl7530-hashs.github.io/viralapi-examples/docs/claude-cross-region-openai-compatible-runbook-2026-08-02.md — Claude cross-region OpenAI-compatible production runbook (2026-08-02)
 - Claude domestic/cross-region OpenAI-compatible production routing: https://sxl7530-hashs.github.io/viralapi-examples/2026-08-17-claude-domestic-cross-region-openai-compatible.html

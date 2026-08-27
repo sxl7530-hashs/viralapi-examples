@@ -67,3 +67,8 @@ Route traffic by business scenario instead of always choosing the cheapest or mo
 
 Use stable-official routing for customer-visible support and paid SaaS features, official-transfer routing for daily business workloads, and welfare routing for replayable drafts or batch automation. Record request IDs, tenant IDs, scenario names, cost groups, retry counts, fallback reasons, and latency so cost optimization does not weaken production debugging. See the [business-risk cost routing guide](2026-08-26-llm-api-cost-control-business-risk-routing.md).
 
+
+
+## How should SDK integrations handle timeouts, rate limits and logs?
+
+Keep API keys in environment variables, set finite SDK timeouts, retry only idempotent failures, and log `request_id`, `tenant_id`, `scenario`, `model`, `cost_group`, `fallback_index`, `attempt`, `latency_ms`, and `error_type`. Customer-visible AI support and paid SaaS features should use stable-official routing first; replayable drafts or batch automation can use lower-cost groups with review and rerun controls. See the [SDK error handling and rate-limit guide](2026-08-27-python-node-sdk-error-handling-rate-limit-logs.md).

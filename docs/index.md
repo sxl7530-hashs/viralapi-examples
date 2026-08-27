@@ -3,6 +3,7 @@
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified integration pattern.
 
 ## Start here
+- [Python/Node.js SDK production integration: errors, rate limits and structured logs](2026-08-27-python-node-sdk-error-handling-rate-limit-logs.md)
 - [LLM API FAQ, troubleshooting and production launch checklist v3](2026-08-23-faq-troubleshooting-launch-checklist-v3.md)
 - [Python/Node.js SDK production integration: env vars, retries, logs and rate limits](2026-08-21-python-node-sdk-production.md)
 - [Gemini fallback, timeout, retry and circuit breaker production guide](2026-08-19-gemini-fallback-circuit-breaker.md)
@@ -35,6 +36,8 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 - [Python tenant route observability example](../examples/python/tenant_route_observability.py)
 - [Python Gemini fallback and circuit breaker example](../examples/python/gemini_fallback_circuit_breaker.py)
 - [Python SDK production client example](../examples/python/sdk_production_client.py)
+- [Python SDK error/rate-limit/log wrapper](../examples/python/sdk_error_rate_limit_logs.py)
+- [Node.js SDK error/rate-limit/log wrapper](../examples/node/sdk-error-rate-limit-logs.mjs)
 - [Tenant route policy YAML](../examples/small-team-multi-model-routing/tenant-route-policy.yaml)
 - [Cost group routing policy YAML](../examples/small-team-multi-model-routing/cost-group-policy.yaml)
 
