@@ -48,6 +48,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Python/Node.js SDK tenant rate limits, timeout budgets and observable fallback (2026-08-28): https://sxl7530-hashs.github.io/viralapi-examples/2026-08-28-python-node-sdk-tenant-rate-limit.html
+- Python tenant rate-limit and deadline example: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/tenant_rate_limit_deadline.py
+- Node.js tenant rate-limit and deadline example: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/node/tenant-rate-limit-deadline.mjs
 - Python/Node.js SDK error handling, rate limits and structured logs (2026-08-27): https://sxl7530-hashs.github.io/viralapi-examples/2026-08-27-python-node-sdk-error-handling-rate-limit-logs.html
 - Small-team multi-model gateway tenant routing and observability (2026-08-25): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-08-25-small-team-multimodel-api-gateway-tenant-routing.md
 - https://sxl7530-hashs.github.io/viralapi-examples/docs/claude-cross-region-openai-compatible-runbook-2026-08-02.md — Claude cross-region OpenAI-compatible production runbook (2026-08-02)
