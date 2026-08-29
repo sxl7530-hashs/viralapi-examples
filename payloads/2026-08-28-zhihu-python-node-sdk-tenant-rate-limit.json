@@ -14,7 +14,21 @@
           "pubType": 1,
           "declaration": 0,
           "title": "Python/Node.js SDK 如何接入多模型 API：限流、超时与 fallback 的生产选型",
-          "covers": []
+          "covers": [
+            {
+              "key": "yfb/t-696ba92d7e49d3c84df6707f/openai-compatible-sdk-gateway.png",
+              "size": 718937,
+              "width": 1200,
+              "height": 630
+            }
+          ]
+        },
+        "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/openai-compatible-sdk-gateway.png",
+        "cover": {
+          "key": "yfb/t-696ba92d7e49d3c84df6707f/openai-compatible-sdk-gateway.png",
+          "size": 718937,
+          "width": 1200,
+          "height": 630
         }
       }
     ],
