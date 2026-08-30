@@ -5,6 +5,8 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 ## Start here
 - [Python/Node.js SDK: tenant rate limits, timeout budgets and observable fallback](2026-08-28-python-node-sdk-tenant-rate-limit.md)
 - [Python/Node.js SDK production integration: errors, rate limits and structured logs](2026-08-27-python-node-sdk-error-handling-rate-limit-logs.md)
+- [LLM API FAQ, troubleshooting and launch checklist v4](2026-08-30-llm-api-launch-faq-troubleshooting-checklist.md)
+- [LLM API FAQ, troubleshooting and production checklist 2026-08-30](../2026-08-30-llm-api-launch-faq-troubleshooting-checklist.md)
 - [LLM API FAQ, troubleshooting and production launch checklist v3](2026-08-23-faq-troubleshooting-launch-checklist-v3.md)
 - [Python/Node.js SDK production integration: env vars, retries, logs and rate limits](2026-08-21-python-node-sdk-production.md)
 - [Gemini fallback, timeout, retry and circuit breaker production guide](2026-08-19-gemini-fallback-circuit-breaker.md)
