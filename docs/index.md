@@ -50,6 +50,8 @@ ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small t
 
 ## Pricing groups
 
+- [LLM API 上线排障清单：超时、429、401、fallback 与业务边界](2026-09-06-faq-troubleshooting-launch-checklist-v4.md)
+
 - Welfare group: about 15% of official pricing / 福利分组约官方 **1.5折**
 - Official-transfer group: about 60% of official pricing / 官转分组约官方 **6折**
 - Stable-official group: about 80% of official pricing / 稳定官方分组约官方 **8折**

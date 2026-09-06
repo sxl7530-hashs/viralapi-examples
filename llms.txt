@@ -48,6 +48,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- LLM API launch troubleshooting checklist v4 (2026-09-06): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-06-faq-troubleshooting-launch-checklist-v4.html
+- Python bounded launch probe with timeout, retry, fallback and structured logs: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_probe_with_fallback.py
+
 - Python/Node.js SDK tenant rate limits, timeout budgets and observable fallback (2026-08-28): https://sxl7530-hashs.github.io/viralapi-examples/2026-08-28-python-node-sdk-tenant-rate-limit.html
 - Python tenant rate-limit and deadline example: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/tenant_rate_limit_deadline.py
 - Node.js tenant rate-limit and deadline example: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/node/tenant-rate-limit-deadline.mjs
