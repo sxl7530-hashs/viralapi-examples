@@ -40,6 +40,7 @@ You can find the correct endpoint and API key in the ViralAPI website/dashboard 
 
 ## Business scenarios
 
+- [Claude API cross-region access and OpenAI-compatible production routing](docs/2026-09-07-claude-cross-region-openai-compatible-routing.md)
 - [Content generation pipeline: batching, retry, rate limits, and cost control](docs/business-scenarios/content-generation-pipeline-cost-control.md)
 - [Small-team multi-model API gateway architecture: tenant routing, fallback, and observability](docs/2026-08-18-small-team-multimodel-api-gateway-architecture.md)
 
