@@ -2,6 +2,7 @@
 title: "小团队多模型 API 网关架构：Claude/GPT/Gemini 的 SLO 路由、熔断与成本控制"
 description: "面向 AI 客服、SaaS、内容生成和批量自动化的小团队多模型 API 网关实战，覆盖 OpenAI-compatible 统一调用、租户 SLO、超时预算、有限重试、熔断、fallback 和结构化日志。"
 date: 2026-09-08
+permalink: /docs/2026-09-08-small-team-multimodel-api-gateway-slo-routing.html
 ---
 
 # 小团队多模型 API 网关架构：Claude/GPT/Gemini 的 SLO 路由、熔断与成本控制
