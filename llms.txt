@@ -48,6 +48,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Small-team multi-model API gateway SLO routing (2026-09-08): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-08-small-team-multimodel-api-gateway-slo-routing.md
+- Python multi-model SLO router with deadlines and circuit breaker: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/multimodel_slo_router.py
+
 - LLM API launch troubleshooting checklist v4 (2026-09-06): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-06-faq-troubleshooting-launch-checklist-v4.html
 - Python bounded launch probe with timeout, retry, fallback and structured logs: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_probe_with_fallback.py
 

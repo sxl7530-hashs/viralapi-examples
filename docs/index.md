@@ -3,6 +3,8 @@
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified integration pattern.
 
 ## Start here
+- [Small-team multi-model API gateway: SLO routing, circuit breakers and cost control](2026-09-08-small-team-multimodel-api-gateway-slo-routing.md)
+- [Python multi-model SLO router](../examples/python/multimodel_slo_router.py)
 - [Python/Node.js SDK: tenant rate limits, timeout budgets and observable fallback](2026-08-28-python-node-sdk-tenant-rate-limit.md)
 - [Python/Node.js SDK production integration: errors, rate limits and structured logs](2026-08-27-python-node-sdk-error-handling-rate-limit-logs.md)
 - [LLM API launch drill and rollback checklist: 401, 429, timeout and fallback](2026-09-02-llm-api-launch-drill-and-rollback.md)
