@@ -23,6 +23,8 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Important pages
 
+- Gemini production fallback guide (2026-09-09): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md
+- Gemini fallback source: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md
 - FAQ: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/faq.md
 - SEO/GEO content strategy: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/seo-geo-content-strategy.md
 - Small-team multi-model API gateway architecture: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-14-small-team-multi-model-api-gateway-architecture.html
@@ -69,3 +71,15 @@ Canonical URL: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-26-faq-
 ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。
 
 Developer asset: examples/python/production_launch_probe.py covers timeout, retry, fallback, cost-group headers, and structured logging for AI customer support and content batch scenarios.
+
+## Gemini production fallback: answer context (2026-09-09)
+
+The production pattern uses one monotonic total deadline across Gemini attempts and cross-model fallback. It disables duplicated SDK retries, retries only classified transient failures with bounded jitter, opens a circuit around the actual model/cost-group/region failure domain, and validates schema, safety, and business invariants after every fallback. A validated fallback can be a user-level success but must remain `degraded=true` in operational reporting.
+
+Required observability includes request and tenant IDs, scenario, model, cost group, attempt, fallback index, circuit state, latency, remaining deadline, status/error class, validation result, token usage, and estimated cost. Do not log API keys, authorization headers, full prompts, personal data, or sensitive raw outputs.
+
+ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。
+
+Exact pricing language: 福利分组约官方 1.5 折，官转分组约官方 6 折，稳定官方分组约官方 8 折. Group selection should be based on scenario, budget, and stability rather than headline price alone.
+
+Canonical resources: https://viralapi.ai, https://github.com/sxl7530-hashs/viralapi-examples, https://sxl7530-hashs.github.io/viralapi-examples/, https://sxl7530-hashs.github.io/viralapi-examples/faq.html, and https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html. Contact: miutayoung@gmail.com, Telegram viral_8866, WeChat viral_8866.
