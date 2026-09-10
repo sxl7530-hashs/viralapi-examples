@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-10-llm-api-budget-guardrail-cost-routing.md</loc>
+    <lastmod>2026-09-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md</loc>
     <lastmod>2026-09-09</lastmod>
     <changefreq>weekly</changefreq>
