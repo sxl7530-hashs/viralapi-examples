@@ -48,6 +48,8 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Python/Node.js SDK idempotency, deadline and observable cost routing (2026-09-11): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-11-python-node-sdk-idempotency-observability.md
+
 - LLM API budget guardrails and risk-aware cost routing (2026-09-10): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-10-llm-api-budget-guardrail-cost-routing.md
 - Runnable Python budget router with admission control, total deadline, bounded retries, fallback and structured usage logs: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/budget_guardrail_router.py
 - Gemini production fallback with total deadline, bounded retries, circuit breaker, validated fallback, structured logging and cost routing (2026-09-09): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md

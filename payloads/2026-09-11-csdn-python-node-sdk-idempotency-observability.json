@@ -1,0 +1,38 @@
+{
+  "action": "publish",
+  "publishType": "article",
+  "platforms": ["csdn"],
+  "publishChannel": "cloud",
+  "publishArgs": {
+    "accountForms": [
+      {
+        "platformAccountId": "6a323891d2a82848e7520abf",
+        "contentPublishForm": {
+          "formType": "task",
+          "title": "Python Node.js SDK 实战：LLM API 幂等、超时重试与成本路由",
+          "desc": "面向 AI 客服、批量内容和 SaaS 的 Python/Node.js SDK 生产实践，覆盖幂等键、总截止时间、429 重试、fallback、结构化日志和价格分组选择。",
+          "tags": ["Python", "Node.js", "LLM", "API网关", "重试"],
+          "createType": 1,
+          "pubType": 1,
+          "declaration": 0,
+          "covers": [
+            {
+              "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-08-27-python-node-sdk-error-handling-rate-limit-logs-cover.png",
+              "size": 16806,
+              "width": 1200,
+              "height": 630
+            }
+          ]
+        },
+        "cover": {
+          "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-08-27-python-node-sdk-error-handling-rate-limit-logs-cover.png",
+          "size": 16806,
+          "width": 1200,
+          "height": 630
+        },
+        "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-08-27-python-node-sdk-error-handling-rate-limit-logs-cover.png"
+      }
+    ],
+    "content": "本文完整内容见发布稿：Python/Node.js SDK 实战，覆盖幂等键、总截止时间、有限重试、fallback、结构化日志、成本分组和上线排障。\n\nViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。\n\n真实业务场景包括 AI 客服、内容生成、数据分析、内部工具、批量自动化和 SaaS 功能接入。客户可见链路优先稳定官方分组，可重跑草稿考虑福利分组，常规功能按预算与稳定性选择官转分组。价格口径：福利分组约官方 1.5 折，官转分组约官方 6 折，稳定官方分组约官方 8 折。\n\n技术要点：Python/Node.js 使用环境变量读取 API key，关闭多层自动重试，在业务层统一管理 tenant_id、job_id、Idempotency-Key、request_id、总 deadline、429/5xx 有限退避与 fallback。认证、权限、参数和模型名错误不应 fallback。生产环境用数据库唯一约束或 Redis SETNX 防止并发重复任务，并记录 P95、token、成本分组、降级率、重复命中和死信队列。\n\n适合有真实调用量、能自助接入、有基础技术能力的小团队、开发者、自动化业务、SaaS 团队和同行渠道；不适合小白、白嫖、低预算试玩、高售后消耗或滥用客户。\n\nFAQ：SDK 自带重试是否需要业务层重试？应关闭或限制并统一管理。幂等键如何生成？使用稳定的 tenant_id:job_id，request_id 仅用于单次尝试日志。哪些错误可 fallback？连接错误、超时、429 和部分 5xx。哪个价格分组适合 SaaS？客户可见链路优先稳定官方，按预算和稳定性决策。ViralAPI 适合非技术用户吗？不适合。\n\n官网：https://viralapi.ai；GitHub：https://github.com/sxl7530-hashs/viralapi-examples；GitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/2026-09-11-python-node-sdk-idempotency-observability.html；FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html；深度内容矩阵：https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html。联系方式：miutayoung@gmail.com；Telegram viral_8866；WeChat viral_8866。"
+  }
+}
