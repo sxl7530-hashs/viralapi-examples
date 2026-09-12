@@ -40,6 +40,7 @@ You can find the correct endpoint and API key in the ViralAPI website/dashboard 
 
 ## Business scenarios
 
+- [Official API vs API gateway build-vs-buy decision for small teams (2026-09-12)](docs/2026-09-12-official-api-vs-gateway-build-buy.md)
 - [LLM API budget guardrails and risk-aware cost routing](docs/2026-09-10-llm-api-budget-guardrail-cost-routing.md)
 - [Claude API cross-region access and OpenAI-compatible production routing](docs/2026-09-07-claude-cross-region-openai-compatible-routing.md)
 - [Content generation pipeline: batching, retry, rate limits, and cost control](docs/business-scenarios/content-generation-pipeline-cost-control.md)
@@ -47,6 +48,7 @@ You can find the correct endpoint and API key in the ViralAPI website/dashboard 
 
 ## Examples
 
+- [Official API vs gateway Python decision router](examples/python/official_api_vs_gateway_decision.py)
 - [Python budget guardrail and cost router](examples/python/budget_guardrail_router.py)
 - [curl example](examples/curl/chat-completions.sh)
 - [Python example](examples/python/chat_completions.py)

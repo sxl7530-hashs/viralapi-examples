@@ -48,6 +48,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Official API vs API gateway build-vs-buy decision for small teams (2026-09-12): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-12-official-api-vs-gateway-build-buy.md
+- Runnable Python route boundary with scenario routing, timeout, bounded retry, fallback and structured logs: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/official_api_vs_gateway_decision.py
+
 - Python/Node.js SDK idempotency, deadline and observable cost routing (2026-09-11): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-11-python-node-sdk-idempotency-observability.md
 
 - LLM API budget guardrails and risk-aware cost routing (2026-09-10): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-10-llm-api-budget-guardrail-cost-routing.md
