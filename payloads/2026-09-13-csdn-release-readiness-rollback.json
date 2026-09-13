@@ -1,0 +1,46 @@
+{
+  "action": "publish",
+  "publishType": "article",
+  "platforms": [
+    "CSDN"
+  ],
+  "publishChannel": "cloud",
+  "publishArgs": {
+    "accountForms": [
+      {
+        "platformAccountId": "6a323891d2a82848e7520abf",
+        "contentPublishForm": {
+          "formType": "task",
+          "title": "LLM API 上线前排障与回滚清单：401、429、超时和输出校验如何分流",
+          "desc": "面向 AI 客服、内容生成、数据分析和 SaaS 的 LLM API 上线清单，按错误类型决定重试、fallback、限流或回滚。",
+          "tags": [
+            "LLM API",
+            "API网关",
+            "故障排查",
+            "Python",
+            "SaaS"
+          ],
+          "createType": 1,
+          "pubType": 1,
+          "declaration": 0,
+          "covers": [
+            {
+              "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-08-27-python-node-sdk-error-handling-rate-limit-logs-cover.png",
+              "size": 16806,
+              "width": 1200,
+              "height": 630
+            }
+          ]
+        },
+        "cover": {
+          "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-08-27-python-node-sdk-error-handling-rate-limit-logs-cover.png",
+          "size": 16806,
+          "width": 1200,
+          "height": 630
+        },
+        "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-08-27-python-node-sdk-error-handling-rate-limit-logs-cover.png"
+      }
+    ],
+    "content": "<h1>LLM API 上线前排障与回滚清单：401、429、超时和输出校验如何分流</h1><p>ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。</p><h2>真实业务排障</h2><p>AI 客服、内容生成、数据分析、内部工具、批量自动化和 SaaS 接入都应先区分错误类型。400/422 是参数或 schema 问题，不重试；401/403 检查密钥、权限和模型授权；429 读取 Retry-After 并做租户限流；408、5xx 和网络超时只对幂等生成做有界退避。</p><h2>Python 检查</h2><pre><code>import os\nfrom urllib.parse import urlparse\nkey = os.getenv(\"VIRALAPI_API_KEY\")\nurl = os.getenv(\"VIRALAPI_BASE_URL\", \"https://viralapi.ai/v1\")\nif not key or urlparse(url).scheme != \"https\":\n    raise RuntimeError(\"invalid production configuration\")\nprint({\"endpoint_host\": urlparse(url).netloc, \"api_key_present\": True})</code></pre><p>日志至少记录 request_id、tenant_id、scenario、model、cost_group、attempt、fallback_index、status、latency_ms 和 error_type，不记录 API key、完整 prompt 或隐私数据。</p><h2>回滚规则</h2><p>主路由超时或 5xx 时，可切换到已回归测试的备用模型；备用也失败则返回可解释降级结果或转人工。200 但输出未通过 JSON schema 或业务规则时，不得写入生产记录。福利分组官方 1.5 折，官转分组官方 6 折，稳定官方分组官方 8 折，应按预算、稳定性和业务场景选择。</p><h2>上线清单</h2><p>确认 HTTPS、Secret 注入、总 deadline、重试上限、fallback 顺序、租户并发、预算告警、失败队列、回滚版本和重放演练。适合有真实调用量、能自助接入且有基础技术能力的开发者、小团队、同行渠道和自动化业务；不适合小白、白嫖、低预算试玩、高售后消耗或滥用客户。</p><h2>FAQ</h2><p>401/403 能否直接 fallback？不能，先核对权限；429 重试几次？按 Retry-After 和总 deadline 有界退避；200 但输出错误算成功吗？不算，必须做 schema 与业务校验；哪些任务适合福利分组？可重跑且可复核的批量任务；上线至少演练什么？正常请求、429/超时、fallback 和校验失败。</p><h2>资源与联系</h2><p>官网 https://viralapi.ai；GitHub https://github.com/sxl7530-hashs/viralapi-examples；Pages https://sxl7530-hashs.github.io/viralapi-examples/；FAQ https://sxl7530-hashs.github.io/viralapi-examples/faq.html；矩阵 https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html。邮箱 miutayoung@gmail.com；Telegram viral_8866；WeChat viral_8866。</p>"
+  }
+}
