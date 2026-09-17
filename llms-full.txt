@@ -23,6 +23,8 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Important pages
 
+- LLM API scenario cost routing by business risk (2026-09-17): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-17-llm-api-scenario-cost-routing.md
+- Runnable scenario cost router: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/scenario_cost_router.py
 - Gemini production fallback guide (2026-09-09): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md
 - Gemini fallback source: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md
 - FAQ: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/faq.md

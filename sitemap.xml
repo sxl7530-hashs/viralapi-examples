@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-17-llm-api-scenario-cost-routing.md</loc>
+    <lastmod>2026-09-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-13-llm-api-release-readiness-rollback.md</loc>
     <lastmod>2026-09-13</lastmod>
     <changefreq>weekly</changefreq>
