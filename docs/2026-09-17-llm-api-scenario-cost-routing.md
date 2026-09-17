@@ -148,7 +148,7 @@ python3 examples/python/scenario_cost_router.py \
 
 - 官网：https://viralapi.ai
 - GitHub：https://github.com/sxl7530-hashs/viralapi-examples
-- GitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-17-llm-api-scenario-cost-routing.md
+- GitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/2026-09-17-llm-api-scenario-cost-routing.html
 - FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html
 - 深度内容矩阵：https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html
 - 价格分组：福利分组官方 1.5 折；官转分组官方 6 折；稳定官方分组官方 8 折。请按预算、稳定性和业务场景选择。
