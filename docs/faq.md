@@ -57,6 +57,10 @@ A practical router keeps the request shape stable while centralizing scenario-ba
 
 Route traffic by business scenario instead of always choosing the cheapest or most stable path. AI support and paid SaaS features usually need stable-official routing, while batch content generation can use more cost-sensitive groups with bounded retries. See the [LLM API cost routing guide](2026-07-18-llm-api-cost-routing-business-scenarios.md).
 
+## What evidence is needed before launching AI support?
+
+Verify response quality separately from HTTP success, exercise timeout and duplicate-task failures, and keep business writes idempotent with a stable operation ID and database uniqueness. Require a rollback owner and human handoff. See the [launch evidence checklist](2026-09-20-llm-api-launch-evidence-checklist.html).
+
 ## How do I contact ViralAPI?
 
 - Website: https://viralapi.ai
