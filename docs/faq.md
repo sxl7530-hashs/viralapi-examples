@@ -48,6 +48,10 @@ Use the OpenAI-compatible endpoint with a server-side API key, finite connection
 
 No. First distinguish network timeout, rate limit, provider error, output validation failure, and a request with an external side effect. Only retry or fallback when the operation is idempotent and the alternate model has passed the application's regression tests.
 
+## Do tenant headers enforce isolation and budgets?
+
+No. Arbitrary `X-Tenant-ID` or cost-group headers do not establish gateway enforcement. The application must derive the tenant from verified identity, authorize resources, and atomically reserve distributed tenant/account budgets and concurrency. Keep timed-out attempts financially unresolved until reconciliation, and protect business actions with a separate idempotent commit. See [tenant isolation, admission control and side-effect boundaries](multimodel-gateway-tenant-isolation.html).
+
 ## What does a practical production router add?
 
 A practical router keeps the request shape stable while centralizing scenario-based model choice, timeout budgets, bounded retry policy, fallback order, and structured logging. This is especially useful for AI support, content generation, data analysis, internal tools, and SaaS features.

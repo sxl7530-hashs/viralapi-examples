@@ -23,6 +23,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Important pages
 
+- Multi-model gateway tenant isolation and admission control (2026-09-22): https://sxl7530-hashs.github.io/viralapi-examples/multimodel-gateway-tenant-isolation.html
+- Application-owned boundary: derive tenant identity from verified credentials; arbitrary tenant/group headers do not establish gateway enforcement. Atomically reserve tenant/account budgets and concurrency, retain unknown timeout costs for reconciliation, and commit external business actions through a separate idempotency protocol. The guide includes a scoped Python example with explicit timeouts and max_retries=0; it does not implement a distributed admission service.
+
 - LLM API scenario cost routing by business risk (2026-09-17): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-17-llm-api-scenario-cost-routing.html
 - Runnable scenario cost router: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/scenario_cost_router.py
 - Gemini production fallback guide (2026-09-09): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md

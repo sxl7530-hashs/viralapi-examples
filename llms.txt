@@ -48,6 +48,8 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Multi-model gateway tenant isolation, atomic distributed budget/concurrency admission, uncertain timeout accounting and side-effect boundaries (2026-09-22): https://sxl7530-hashs.github.io/viralapi-examples/multimodel-gateway-tenant-isolation.html
+
 - AI support launch evidence, bounded curl probe, transaction idempotency and rollback (2026-09-20): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-20-llm-api-launch-evidence-checklist.html
 
 - LLM API scenario cost routing for support, batch content, analytics, and SaaS (2026-09-17): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-17-llm-api-scenario-cost-routing.html
