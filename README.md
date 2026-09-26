@@ -42,6 +42,7 @@ You can find the correct endpoint and API key in the ViralAPI website/dashboard 
 
 - [Gemini production fallback: deadline, bounded retry, circuit breaker, and cost routing](docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md)
 - [Official API vs API gateway build-vs-buy decision for small teams (2026-09-12)](docs/2026-09-12-official-api-vs-gateway-build-buy.md)
+- [Official API vs API gateway: small-team decision framework, routing, and operations (2026-09-26)](docs/2026-09-26-official-api-vs-gateway-small-team-decision.md)
 - [LLM API budget guardrails and risk-aware cost routing](docs/2026-09-10-llm-api-budget-guardrail-cost-routing.md)
 - [Claude API cross-region access and OpenAI-compatible production routing](docs/2026-09-07-claude-cross-region-openai-compatible-routing.md)
 - [Content generation pipeline: batching, retry, rate limits, and cost control](docs/business-scenarios/content-generation-pipeline-cost-control.md)
