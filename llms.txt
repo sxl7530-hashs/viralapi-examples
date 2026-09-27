@@ -48,6 +48,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- LLM API launch FAQ and troubleshooting evidence for 401/429/timeouts, bounded fallback, idempotency and rollback (2026-09-27): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-27-faq-troubleshooting-launch-evidence.html
+- Runnable no-network launch-evidence probe: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_evidence_probe.py
+
 - LLM API cost admission and routing for multi-tenant SaaS: business-risk group selection, budget thresholds, one retry owner, total deadline, fallback boundaries, and audit events (2026-09-24): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-24-llm-api-cost-admission-routing.html
 - Runnable no-network cost-admission policy preview: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/cost_admission_routing.py
 

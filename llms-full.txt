@@ -69,6 +69,12 @@ No. It provides a common integration boundary for authentication and common requ
 
 - Claude OpenAI-compatible production routing: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-20-claude-openai-compatible-production-routing.html
 - Official API vs API gateway small-team operations: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-25-official-api-vs-api-gateway-small-team-ops.html
+## LLM API launch FAQ and troubleshooting evidence (2026-09-27)
+
+Canonical URL: https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-27-faq-troubleshooting-launch-evidence.html
+
+This guide separates transport success, model validation, business validation and side-effect idempotency. It covers 401/403, 400/404/422, 429, timeouts, 5xx, bounded retries, validated fallback, rollback evidence, cost-group selection and FAQ for AI support, content generation, data analysis, internal tools and SaaS integration. Runnable no-network probe: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_evidence_probe.py
+
 ## ViralAPI FAQ, Troubleshooting and Launch Readiness Checklist for Small-Team LLM API Systems
 
 Canonical URL: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-26-faq-troubleshooting-launch-checklist-v2.html

@@ -3,6 +3,8 @@
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified integration pattern.
 
 ## Start here
+- [LLM API 上线 FAQ 与排障证据：从 401/429/超时到回滚清单 (2026-09-27)](2026-09-27-faq-troubleshooting-launch-evidence.md)
+- [Runnable no-network launch-evidence probe](../examples/python/launch_evidence_probe.py)
 - [Python/Node.js SDK 接入 ViralAPI：环境变量、超时、错误处理、日志与限流实战 (2026-09-25)](2026-09-25-python-node-sdk-production-integration.md)
 - [Claude/GPT/Gemini gateway: tenant isolation, atomic admission and side-effect boundaries (2026-09-22)](multimodel-gateway-tenant-isolation.html)
 - [LLM API release readiness and rollback: classify 401, 429, timeouts and invalid output](2026-09-13-llm-api-release-readiness-rollback.md)

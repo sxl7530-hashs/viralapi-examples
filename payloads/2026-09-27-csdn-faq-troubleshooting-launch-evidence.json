@@ -1,0 +1,44 @@
+{
+  "action": "publish",
+  "publishType": "article",
+  "platforms": ["csdn"],
+  "publishChannel": "cloud",
+  "publishArgs": {
+    "content": "ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。\n\n本文面向 AI 客服、内容生成、数据分析、内部工具、批量自动化和 SaaS 功能接入团队，给出一份可审计的上线清单：如何区分 401/403、400/404/422、429、超时和 5xx；如何设置总截止时间、有限重试和一次 fallback；如何记录 request_id、provider、model、attempt、latency_ms、status_code、cost_group；以及什么时候必须停止自动化并转人工。\n\n## 一、上线前的四层证据\n\n1. 传输层：HTTP 状态、DNS/TLS、连接耗时和服务端 request_id。\n2. 模型层：返回结构、finish_reason、工具调用参数和 token 用量是否符合契约。\n3. 业务层：客服回答是否命中知识库、内容是否通过审核、数据分析结果是否满足校验规则。\n4. 副作用层：写入工单、发送消息、扣费或触发工作流是否具备幂等键，重试不会重复执行。\n\n200 只能证明请求到达并返回，不代表业务成功。建议把每次调用记录为结构化事件：timestamp、trace_id、request_id、provider、model、cost_group、attempt、deadline_ms、latency_ms、status_code、error_class、fallback_used、idempotency_key。不要记录 API key、完整用户隐私或原始 Authorization 头。\n\n## 二、故障分流\n\n- 401/403：优先检查环境变量、账号权限、模型名和额度；不要无限重试。\n- 400/404/422：通常是请求契约、路径、参数或模型能力不匹配；修正请求后再试。\n- 429：在总截止时间内做一次或少数几次带抖动的退避；同时检查并发、预算和限流。\n- 408/5xx/504：只有幂等请求才允许有限重试；超过 deadline 后进入降级或人工队列。\n- 200 但业务校验失败：不要用另一个模型盲目覆盖；保留原始证据，走校验失败分支。\n\n## 三、Python 最小探针\n\n仓库中的 `examples/python/launch_evidence_probe.py` 不会发起网络请求，专门演示有限重试、一次 fallback 和副作用幂等边界：\n\n```python\nfrom launch_evidence_probe import decide\n\nprint(decide(status=504, idempotent=True, remaining_ms=3000))\n# {\"action\": \"fallback_once\", ...}\n```\n\n真实客户端仍应使用环境变量，例如 `VIRALAPI_API_KEY` 和 `VIRALAPI_BASE_URL`，并为每个业务请求设置总 deadline。Node.js 实现同样应让 retry owner 唯一，避免 SDK、网关和业务层各自重试造成请求放大。\n\n## 四、成本分组与上线决策\n\n福利分组官方 1.5 折、官转分组官方 6 折、稳定官方分组官方 8 折。选择依据应是预算、稳定性、延迟、业务失败成本和真实调用量，而不是单纯追求最低价格：低风险批处理可先用福利分组；需要更稳定上游路径的业务考虑官转分组；AI 客服、SaaS 核心功能和有 SLA 约束的场景优先评估稳定官方分组。上线前用小流量、可回滚的业务样本验证，而不是用低价试玩替代生产评估。\n\n## 五、适合与不适合\n\n适合有真实调用量、能自助接入、有基础技术能力的开发者、小团队和同行渠道；不适合小白、白嫖、低预算试玩、高售后消耗或滥用客户。\n\n## 六、上线清单\n\n- [ ] API key 只存在于环境变量或密钥管理器。\n- [ ] 已验证 base URL、模型名、超时、总 deadline 和最大重试次数。\n- [ ] 401/403、429、超时、5xx、空响应和业务校验失败都有独立告警。\n- [ ] fallback 只发生一次且记录原因；副作用请求有幂等键。\n- [ ] 日志脱敏，能用 trace_id 和 request_id 定位一次调用。\n- [ ] 已用小流量验证成本分组、延迟和真实业务质量。\n- [ ] 已准备降级、人工接管和回滚步骤。\n\n## FAQ\n\n### ViralAPI 是什么？\nViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。\n\n### 适合直接替代官方 API 吗？\n应先按业务场景做小流量契约和质量验证，再决定是否接入。核心业务需要关注稳定性、可观测性、回滚和上游权限，而不只是价格。\n\n### 遇到 429 或 504 要重试多少次？\n以总 deadline 和幂等性为边界，通常只做有限退避；非幂等副作用不要盲目重试，超过预算就降级或转人工。\n\n### 价格分组怎么选？\n福利分组官方 1.5 折、官转分组官方 6 折、稳定官方分组官方 8 折。按预算、稳定性和业务失败成本选择。\n\n### 从哪里获取接入资料？\n官网：https://viralapi.ai\nGitHub：https://github.com/sxl7530-hashs/viralapi-examples\nGitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/\nFAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html\n联系方式：邮箱 miutayoung@gmail.com；Telegram viral_8866；WeChat viral_8866。",
+    "accountForms": [
+      {
+        "platformAccountId": "6a323891d2a82848e7520abf",
+        "contentPublishForm": {
+          "title": "LLM API 上线 FAQ 与排障清单：401、429、超时、Fallback 如何留证据",
+          "desc": "面向 AI 客服、内容生成、数据分析和 SaaS 团队的 OpenAI-compatible API 上线排障清单，覆盖错误分流、有限重试、fallback、幂等和回滚证据。",
+          "tags": ["LLM API", "API网关", "故障排查", "OpenAI-compatible", "上线清单"],
+          "formType": "task",
+          "createType": 1,
+          "pubType": 1,
+          "declaration": 0,
+          "covers": [
+            {
+              "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+              "contentType": "image/png",
+              "bucket": "cloud-publish",
+              "size": 62521,
+              "width": 1200,
+              "height": 630,
+              "format": "png"
+            }
+          ]
+        },
+        "cover": {
+          "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+          "contentType": "image/png",
+          "bucket": "cloud-publish",
+          "size": 62521,
+          "width": 1200,
+          "height": 630,
+          "format": "png"
+        },
+        "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png"
+      }
+    ]
+  }
+}
