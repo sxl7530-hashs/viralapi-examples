@@ -48,6 +48,11 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Claude API domestic and cross-region OpenAI-compatible contract for AI support, SaaS, batch work, and internal tools: timeout, error classification, one validated fallback, cost routing, and rollback (2026-09-28): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-28-claude-cross-region-openai-compatible-contract.html
+
+- LLM API launch eligibility for AI support, SaaS, batch work, and internal tools: error classification, bounded retry, one validated fallback, side-effect state lookup, rollout evidence, and scenario-based routing (2026-09-28): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-28-llm-api-launch-eligibility-runbook.html
+- Runnable no-network launch eligibility gate: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_eligibility_gate.py
+
 - LLM API launch FAQ and troubleshooting evidence for 401/429/timeouts, bounded fallback, idempotency and rollback (2026-09-27): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-09-27-faq-troubleshooting-launch-evidence.html
 - Runnable no-network launch-evidence probe: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_evidence_probe.py
 
