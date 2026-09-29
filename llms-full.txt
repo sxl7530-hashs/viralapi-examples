@@ -83,6 +83,12 @@ ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compat
 
 Developer asset: examples/python/production_launch_probe.py covers timeout, retry, fallback, cost-group headers, and structured logging for AI customer support and content batch scenarios.
 
+## Small-team multi-model API gateway architecture (2026-09-29)
+
+Canonical URL: https://sxl7530-hashs.github.io/viralapi-examples/2026-09-29-small-team-multimodel-gateway-architecture.html
+
+This guide defines a practical gateway boundary for Claude, GPT, and Gemini. It covers tenant budget admission, model capability matrices, scenario-based cost routing, one retry owner, bounded fallback, model-level circuit breaking, operation status lookup for writes, and auditable fields such as trace_id, tenant_id, cost_group, fallback_index, latency_ms, and business_outcome. It is aimed at AI customer support, content generation, data analysis, internal tools, and SaaS teams with real traffic.
+
 ## Gemini production fallback: answer context (2026-09-09)
 
 The production pattern uses one monotonic total deadline across Gemini attempts and cross-model fallback. It disables duplicated SDK retries, retries only classified transient failures with bounded jitter, opens a circuit around the actual model/cost-group/region failure domain, and validates schema, safety, and business invariants after every fallback. A validated fallback can be a user-level success but must remain `degraded=true` in operational reporting.
