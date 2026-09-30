@@ -48,6 +48,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Small-team multi-model gateway admission: unified route names, atomic budget admission, bounded fallback, capability checks, side-effect boundaries, and scenario-based group selection (2026-09-30): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-30-small-team-multimodel-gateway-admission.html
+- Runnable no-network route admission example: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/multimodel_gateway_admission_2026_09_30.py
+
 - Small-team multi-model API gateway architecture for Claude, GPT, and Gemini: unified contract, tenant budget admission, capability matrix, bounded fallback, circuit breaking, audit fields, and scenario routing (2026-09-29): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-29-small-team-multimodel-gateway-architecture.html
 
 - Claude API domestic and cross-region OpenAI-compatible contract for AI support, SaaS, batch work, and internal tools: timeout, error classification, one validated fallback, cost routing, and rollback (2026-09-28): https://sxl7530-hashs.github.io/viralapi-examples/2026-09-28-claude-cross-region-openai-compatible-contract.html

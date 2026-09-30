@@ -1,9 +1,13 @@
 # ViralAPI Developer Examples
 
+- [小团队多模型 API 网关：统一调用、预算准入与故障边界 (2026-09-30)](2026-09-30-small-team-multimodel-gateway-admission.md)
+
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified integration pattern.
 
 ## Start here
 - [小团队多模型 API 网关架构：Claude、GPT、Gemini 统一调用与成本路由 (2026-09-29)](2026-09-29-small-team-multimodel-gateway-architecture.md)
+- [Claude API 国内与跨区接入：请求契约、Trace 与可回滚 fallback (2026-09-29)](2026-09-29-claude-request-contract-trace.md)
+- [Python request-contract policy probe](../examples/python/claude_contract_probe.py)
 - [LLM API 上线 FAQ 与排障证据：从 401/429/超时到回滚清单 (2026-09-27)](2026-09-27-faq-troubleshooting-launch-evidence.md)
 - [Runnable no-network launch-evidence probe](../examples/python/launch_evidence_probe.py)
 - [Python/Node.js SDK 接入 ViralAPI：环境变量、超时、错误处理、日志与限流实战 (2026-09-25)](2026-09-25-python-node-sdk-production-integration.md)
