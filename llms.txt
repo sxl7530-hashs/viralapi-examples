@@ -48,6 +48,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- LLM API cost routing by business scenario: budget admission, bounded fallback, group selection, and structured cost events (2026-10-02): https://sxl7530-hashs.github.io/viralapi-examples/2026-10-02-llm-api-cost-routing-business-scenarios.html
+- Runnable no-network scenario cost-routing policy preview: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/cost_routing_scenario_2026_10_02.py
+
 - Claude API domestic and cross-region OpenAI-compatible integration: deadline budgeting, error routing, one validated fallback, structured logs, cost groups, and rollback (2026-10-01): https://sxl7530-hashs.github.io/viralapi-examples/2026-10-01-claude-domestic-cross-region-openai-compatible-deadline.html
 - Source article: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/2026-10-01-claude-domestic-cross-region-openai-compatible-deadline.md
 

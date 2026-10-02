@@ -40,6 +40,7 @@ You can find the correct endpoint and API key in the ViralAPI website/dashboard 
 
 ## Business scenarios
 
+- [LLM API cost routing by business scenario: budget admission, bounded fallback, and group selection (2026-10-02)](docs/2026-10-02-llm-api-cost-routing-business-scenarios.md)
 - [Claude API cross-region OpenAI-compatible contract: timeout, fallback, cost routing, and rollback](docs/2026-09-28-claude-cross-region-openai-compatible-contract.md)
 - [LLM API launch eligibility runbook: error classification, one fallback, idempotency, and controlled rollout](docs/2026-09-28-llm-api-launch-eligibility-runbook.md)
 - [Gemini production fallback: deadline, bounded retry, circuit breaker, and cost routing](docs/2026-09-09-gemini-fallback-timeout-retry-circuit-breaker.md)
@@ -52,6 +53,7 @@ You can find the correct endpoint and API key in the ViralAPI website/dashboard 
 
 ## Examples
 
+- [Offline scenario cost-routing policy preview](examples/python/cost_routing_scenario_2026_10_02.py)
 - [No-network LLM launch eligibility gate](examples/python/launch_eligibility_gate.py)
 - [Gemini fallback, total deadline, retry, and circuit-breaker Python example](examples/python/gemini_fallback_circuit_breaker.py)
 - [Official API vs gateway Python decision router](examples/python/official_api_vs_gateway_decision.py)
