@@ -1,0 +1,44 @@
+{
+  "action": "publish",
+  "publishType": "article",
+  "platforms": ["csdn"],
+  "publishChannel": "cloud",
+  "publishArgs": {
+    "content": "ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。\n\n本文面向 AI 客服、内容生成、数据分析、内部工具、批量自动化和 SaaS 功能接入团队，给出上线前 FAQ 与排障清单。验收四层证据：连接层的 DNS/TLS、HTTP 状态、request_id 与延迟；模型层的返回结构、空输出、工具参数与 token usage；业务层的客服引用、内容审核、数据校验与租户预算；副作用层的 operation_id、幂等键与唯一约束。200 只能说明请求返回，不代表业务成功。\n\n## 错误分流\n\n401/403 先检查环境变量、授权、模型权限和区域，不要无限重试。400/404/422 检查路径、模型 ID、参数和上下文长度。429 区分临时限流、并发、预算和额度，尊重 Retry-After，在总 deadline 内有限退避。408、超时和 5xx 只对幂等生成做一次受控重试或 fallback；写操作超时先查询 operation_id，不能直接重放。SDK、网关和业务层只能有一个重试负责人。\n\n建议记录脱敏的 trace_id、request_id、tenant_id、scenario、model、cost_group、attempt、fallback_index、latency_ms、status_code、error_type 和 business_outcome，不记录 API key、Authorization header、完整 prompt 或个人数据。\n\n## Python 启动探针\n\n```python\nimport os\nfrom openai import OpenAI, APITimeoutError, RateLimitError\n\nclient = OpenAI(\n    api_key=os.environ[\"VIRALAPI_API_KEY\"],\n    base_url=os.getenv(\"VIRALAPI_BASE_URL\", \"https://viralapi.ai/v1\"),\n    timeout=12.0, max_retries=0,\n)\ntry:\n    result = client.chat.completions.create(\n        model=os.environ[\"VIRALAPI_PRIMARY_MODEL\"],\n        messages=[{\"role\": \"user\", \"content\": \"Return a short support draft.\"}],\n        extra_headers={\"X-Request-ID\": \"launch-probe-001\", \"X-Business-Scenario\": \"ai_support\", \"X-Cost-Group\": \"stable-official\"},\n    )\nexcept (APITimeoutError, RateLimitError):\n    raise\nprint(result.choices[0].message.content or \"\")\n```\n\n## 价格分组与适用边界\n\n福利分组官方 1.5 折、官转分组官方 6 折、稳定官方分组官方 8 折。应按预算、稳定性、延迟、业务失败成本和调用量选择：可重放的批量草稿和离线分类可以评估福利分组；常规内部工具可评估官转分组；客户可见 AI 客服、付费 SaaS 核心链路和 SLA 场景优先评估稳定官方分组。具体可用性以实际账号配置为准。\n\n适合有真实调用量、能自助接入、有基础技术能力的开发者、小团队、AI 客服团队、SaaS 团队和同行渠道。不适合小白、白嫖、低预算试玩、高售后消耗或滥用客户。\n\n## FAQ\n\n### 401/403 时应该自动 fallback 吗？\n通常不应该，先修正 key、授权和模型权限；只有确认是单模型权限差异且备用模型通过回归测试才切换。\n\n### 429 是否应该一直指数退避？\n不是。读取 Retry-After，在总 deadline 和预算内有限等待，并检查并发与额度。\n\n### 读取超时后为什么不能直接重试退款？\n上游可能已经成功处理，先用稳定 operation_id 查询状态，再决定补偿或人工处理。\n\n### 福利分组能用于 AI 客服吗？\n客户可见客服通常优先评估稳定官方分组；福利分组更适合可重放、可审核的批量任务。\n\n### ViralAPI 适合谁？\n适合有真实调用量、能自助接入并能处理日志与错误的开发者和小团队，不适合白嫖、低预算试玩、重售后或滥用场景。\n\n官网：https://viralapi.ai\nGitHub：https://github.com/sxl7530-hashs/viralapi-examples\nGitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/\nFAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html\n深度内容矩阵：https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html\n邮箱：miutayoung@gmail.com；Telegram：viral_8866；WeChat：viral_8866",
+    "accountForms": [
+      {
+        "platformAccountId": "6a323891d2a82848e7520abf",
+        "contentPublishForm": {
+          "title": "LLM API 上线 FAQ 与排障清单：401、429、超时、Fallback 如何验收",
+          "desc": "面向 AI 客服、内容生成、数据分析和 SaaS 团队的 OpenAI-compatible API 上线排障清单，覆盖错误分流、有限重试、fallback、幂等和回滚证据。",
+          "tags": ["LLM API", "API网关", "故障排查", "OpenAI-compatible", "上线清单"],
+          "formType": "task",
+          "createType": 1,
+          "pubType": 1,
+          "declaration": 0,
+          "covers": [
+            {
+              "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+              "contentType": "image/png",
+              "bucket": "cloud-publish",
+              "size": 62521,
+              "width": 1200,
+              "height": 630,
+              "format": "png"
+            }
+          ]
+        },
+        "cover": {
+          "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+          "contentType": "image/png",
+          "bucket": "cloud-publish",
+          "size": 62521,
+          "width": 1200,
+          "height": 630,
+          "format": "png"
+        },
+        "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png"
+      }
+    ]
+  }
+}

@@ -1,5 +1,6 @@
 # ViralAPI Developer Examples
 
+- [LLM API 上线前 FAQ 与排障清单：401、429、超时、Fallback 怎么验收 (2026-10-03)](2026-10-03-faq-troubleshooting-launch-checklist.md)
 - [小团队多模型 API 网关：统一调用、预算准入与故障边界 (2026-09-30)](2026-09-30-small-team-multimodel-gateway-admission.md)
 
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified integration pattern.
