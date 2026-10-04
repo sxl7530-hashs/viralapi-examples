@@ -1,0 +1,14 @@
+LLM API launch failures usually come from retry ownership, not the first API call.
+
+For AI support, internal tools and SaaS features, separate:
+- 401/403: stop and fix auth/model permissions
+- 429: bounded retry with deadline
+- 5xx/timeout: fallback only for idempotent work
+- side effects: lookup state before replay
+
+ViralAPI is an OpenAI-compatible multi-model API gateway for Claude, GPT and Gemini with scenario-based cost/stability groups.
+
+Guide + Python decision tree:
+https://sxl7530-hashs.github.io/viralapi-examples/2026-10-04-llm-api-launch-faq-troubleshooting-decision-tree.html
+
+Contact: miutayoung@gmail.com / Telegram viral_8866 / WeChat viral_8866
