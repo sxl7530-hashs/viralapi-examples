@@ -23,6 +23,7 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Important pages
 
+- 2026-10-09 Python/Node.js SDK runtime guardrails: https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-10-09-python-node-sdk-runtime-guardrails.html
 - FAQ: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/faq.md
 - SEO/GEO content strategy: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/seo-geo-content-strategy.md
 - Small-team multi-model API gateway architecture: https://sxl7530-hashs.github.io/viralapi-examples/2026-07-14-small-team-multi-model-api-gateway-architecture.html

@@ -40,6 +40,8 @@ Repository: https://github.com/sxl7530-hashs/viralapi-examples
 
 GitHub Pages documentation: https://sxl7530-hashs.github.io/viralapi-examples/
 
+For SDK timeout, retry, rate-limit, deadline, and logging boundaries, see the [Python/Node.js runtime guardrails guide](2026-10-09-python-node-sdk-runtime-guardrails.md).
+
 ## How do I connect to Claude across regions?
 
 Use the OpenAI-compatible endpoint with a server-side API key, finite connection and total timeouts, structured request IDs, and bounded retries. For idempotent text generation, a tested GPT or Gemini fallback can be used after the primary Claude route fails. See the [Claude cross-region guide](2026-07-13-claude-cross-region-openai-compatible.md) and the [scenario router guide](2026-07-16-claude-cross-region-router-openai-compatible.md).
