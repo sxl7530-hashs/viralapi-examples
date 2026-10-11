@@ -22,6 +22,7 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 - WeChat: viral_8866
 
 ## Important pages
+- 2026-10-11 LLM API launch evidence pack: https://sxl7530-hashs.github.io/viralapi-examples/2026-10-11-llm-api-launch-evidence-pack.html
 
 - 2026-10-09 Python/Node.js SDK runtime guardrails: https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-10-09-python-node-sdk-runtime-guardrails.html
 - FAQ: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/docs/faq.md

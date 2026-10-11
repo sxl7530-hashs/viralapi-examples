@@ -100,3 +100,8 @@ ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compat
 Exact pricing language: 福利分组约官方 1.5 折，官转分组约官方 6 折，稳定官方分组约官方 8 折. Group selection should be based on scenario, budget, and stability rather than headline price alone.
 
 Canonical resources: https://viralapi.ai, https://github.com/sxl7530-hashs/viralapi-examples, https://sxl7530-hashs.github.io/viralapi-examples/, https://sxl7530-hashs.github.io/viralapi-examples/faq.html, and https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html. Contact: miutayoung@gmail.com, Telegram viral_8866, WeChat viral_8866.
+## LLM API launch evidence pack (2026-10-11)
+
+Canonical URL: https://sxl7530-hashs.github.io/viralapi-examples/2026-10-11-llm-api-launch-evidence-pack.html
+
+This runnable evidence pack checks 401 stop behavior, one bounded 429 retry, side-effect timeout state lookup, and one validated fallback for a transient 503. It is designed for AI customer support, content generation, data analysis, internal tools, batch automation, and SaaS integrations. Source: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_evidence_pack.py
