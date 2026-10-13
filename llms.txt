@@ -50,6 +50,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Small-team multi-model API gateway contract for unified Claude, GPT, and Gemini business routing (2026-10-13): https://sxl7530-hashs.github.io/viralapi-examples/2026-10-13-small-team-multimodel-api-gateway-contract.html
+- Runnable Python gateway contract example with budget admission, one deadline, bounded fallback, output validation, and structured result fields: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/multimodel_gateway_contract_2026_10_13.py
+
 - LLM API launch troubleshooting decision tree for 401/429/timeouts, one retry owner, bounded fallback, side-effect state lookup, and customer-fit screening (2026-10-04): https://sxl7530-hashs.github.io/viralapi-examples/2026-10-04-llm-api-launch-faq-troubleshooting-decision-tree.html
 - Runnable no-network troubleshooting decision tree: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_troubleshooting_decision_tree_2026_10_04.py
 
