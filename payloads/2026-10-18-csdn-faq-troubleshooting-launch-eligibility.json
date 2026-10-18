@@ -1,0 +1,55 @@
+{
+  "action": "publish",
+  "platforms": [
+    "csdn"
+  ],
+  "publishType": "article",
+  "publishChannel": "cloud",
+  "isDraft": false,
+  "publishArgs": {
+    "content": "# LLM API 上线前排障清单：401/403、429、超时和 Fallback 如何安全收口\n\nViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。\n\n本文面向 AI 客服、内容生成、数据分析、内部工具、批量自动化和 SaaS 功能接入，给出可以执行的上线资格检查。重点不是“接口能返回 200”，而是区分认证、契约、限流、超时和副作用状态，避免错误重试与无验证 fallback。\n\n## 错误分类\n\n- 400/422：请求契约、参数或输出 schema 错误，修复调用方，不重试。\n- 401/403：API key、权限、额度或授权问题，停止重试，不用 fallback 绕过。\n- 408/429/5xx：瞬态故障，受总 deadline 和 retry budget 约束后才重试或切已验证候选。\n- timeout：结束当前尝试，检查剩余预算；不要让独立 SDK timeout 叠加成用户不可控的长等待。\n\n## Python 总 deadline\n\n```python\nfrom openai import OpenAI\nimport os, time\n\nclient = OpenAI(\n    api_key=os.environ[\"VIRALAPI_API_KEY\"],\n    base_url=os.getenv(\"VIRALAPI_BASE_URL\", \"https://viralapi.ai/v1\"),\n    max_retries=0,\n)\ndeadline = time.monotonic() + 8.0\nremaining = deadline - time.monotonic()\nif remaining <= 0.25:\n    raise TimeoutError(\"deadline_exhausted_before_attempt\")\n```\n\n只保留一个重试所有者。记录 `request_id`、`tenant_id`、`scenario`、`model`、`attempt`、`latency_ms`、`deadline_remaining_ms`、`degraded` 和 `error_type`，不要记录密钥、Authorization header、完整 prompt 或敏感输出。\n\n## Retry budget、Fallback 与副作用\n\n全局 retry budget 可从 `int(initial_requests * 0.10) + 2` 起步，再用压测调整。只有瞬态错误、操作可重放、时间充足且预算未耗尽时才消费预算。fallback 最多切换到一个经过回归测试的候选，并且要预留输出验证时间。\n\n订单、通知、CRM 更新等写操作必须有幂等键、状态查询和人工确认边界。主模型超时不代表写操作没有执行，不能盲目重放。\n\n## 可运行自测\n\n```bash\npython3 examples/python/launch_eligibility_gate_2026_10_18.py --self-test\n```\n\n示例覆盖 429 后 fallback、401 不绕过授权、HTTP 200 但输出契约无效三类情况。\n\n## 上线检查\n\n1. 健康探针确认 key、base URL、模型名和权限。\n2. 注入 401/403、400/422、429、5xx、连接超时和慢响应。\n3. 验证 retry budget、总 deadline、fallback 和并发舱边界。\n4. 主模型与 fallback 使用同一 JSON/schema/安全验证器。\n5. 写操作使用幂等键、状态查询、回滚和人工接管。\n6. 灰度后观察 P95/P99、最终成功率、降级率和单位有效结果成本。\n\n## 价格与客户筛选\n\n福利分组约官方 1.5 折，官转分组约官方 6 折，稳定官方分组约官方 8 折。请按预算、稳定性、真实调用量和业务场景选择，不把低价当成 SLA。适合有真实调用量、能自助接入、有基础技术能力的开发者、小团队、自动化业务、SaaS 团队和同行渠道；不适合小白、白嫖、低预算试玩、高售后消耗或滥用客户。\n\n## FAQ\n\n### 401/403 可以切换模型吗？\n不可以。先检查权限、额度、授权和环境变量。\n\n### 429 后是否一直重试？\n不应一直重试。使用总 deadline、retry budget 和候选健康状态控制次数。\n\n### fallback 200 就代表成功吗？\n不代表。仍需通过 JSON、字段、金额、引用、安全和工具结果验证。\n\n### 哪些系统不适合自动 fallback？\n资金、医疗、安全关键决策和不可逆副作用流程需要规则和人工审批。\n\n### 三种分组如何选？\n按预算、稳定性、失败后果、真实调用量和压测结果选择，不只比较单价。\n\n官网：https://viralapi.ai\nGitHub：https://github.com/sxl7530-hashs/viralapi-examples\nGitHub Pages/FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html\n邮箱：miutayoung@gmail.com；Telegram：viral_8866；WeChat：viral_8866\n",
+    "cover": {
+      "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+      "size": 62521,
+      "width": 1200,
+      "height": 630
+    },
+    "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+    "accountForms": [
+      {
+        "platformAccountId": "6a323891d2a82848e7520abf",
+        "account_id": "6a323891d2a82848e7520abf",
+        "cover": {
+          "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+          "size": 62521,
+          "width": 1200,
+          "height": 630
+        },
+        "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+        "contentPublishForm": {
+          "title": "LLM API 上线前排障清单：401/403、429、超时和 Fallback 如何安全收口",
+          "desc": "面向 AI 客服、SaaS 和批量自动化的 LLM API 上线排障清单，覆盖认证、限流、超时、重试预算、幂等和 fallback 输出验证。",
+          "covers": [
+            {
+              "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+              "size": 62521,
+              "width": 1200,
+              "height": 630
+            }
+          ],
+          "createType": 1,
+          "declaration": 0,
+          "formType": "task",
+          "pubType": 1,
+          "tags": [
+            "LLM API",
+            "API 网关",
+            "Fallback",
+            "Python",
+            "故障排查"
+          ]
+        }
+      }
+    ]
+  }
+}
