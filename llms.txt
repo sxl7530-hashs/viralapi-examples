@@ -1,5 +1,8 @@
 # ViralAPI
 
+- Small-team multi-model API gateway architecture for unified Claude, GPT, and Gemini routing, budget admission, bounded fallback, and observability (2026-10-27): https://sxl7530-hashs.github.io/viralapi-examples/2026-10-27-small-team-multimodel-gateway-architecture.html
+- Runnable no-network Python gateway contract: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/multimodel_gateway_architecture_2026_10_27.py
+
 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It helps teams access Claude, GPT, Gemini, and other LLMs through a unified API interface while choosing model groups by cost, stability, and usage scenario.
 
 ## Core positioning

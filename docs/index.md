@@ -1,5 +1,7 @@
 # ViralAPI Developer Examples
 
+- [小团队多模型 API 网关架构：Claude、GPT、Gemini 统一调用与成本路由 (2026-10-27)](2026-10-27-small-team-multimodel-gateway-architecture.md)
+
 - [LLM API 上线证据包：401、429、超时与 Fallback 验收 (2026-10-11)](2026-10-11-llm-api-launch-evidence-pack.md)
 
 - [LLM API 上线前 FAQ 与排障清单：401、429、超时、Fallback 怎么验收 (2026-10-03)](2026-10-03-faq-troubleshooting-launch-checklist.md)
