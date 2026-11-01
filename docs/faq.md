@@ -67,6 +67,10 @@ Route traffic by business scenario instead of always choosing the cheapest or mo
 
 Verify response quality separately from HTTP success, exercise timeout and duplicate-task failures, and keep business writes idempotent with a stable operation ID and database uniqueness. Require a rollback owner and human handoff. See the [launch evidence checklist](2026-09-20-llm-api-launch-evidence-checklist.html).
 
+## How should teams distinguish retryable failures from unknown outcomes?
+
+Treat `401/403` and invalid requests as configuration or contract failures, not retry candidates. Retry `429`, transient `5xx`, and network errors only when the operation is idempotent and a total deadline remains. A read timeout after sending a request is an unknown outcome: reconcile by operation ID before repeating any external write. See the [production readiness runbook](2026-11-01-llm-api-launch-readiness-runbook.html).
+
 ## How do I contact ViralAPI?
 
 - Website: https://viralapi.ai

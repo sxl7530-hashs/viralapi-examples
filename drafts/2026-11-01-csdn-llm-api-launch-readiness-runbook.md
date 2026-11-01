@@ -1,0 +1,142 @@
+# LLM API 401/429/5xx 怎么排查？生产上线 FAQ、重试与 fallback 清单
+
+ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。
+
+很多团队把“请求返回 200”当成上线完成。对 AI 客服、内容生成、数据分析、内部工具、批量自动化和 SaaS 功能来说，真正的上线标准是：错误能分类，恢复有边界，副作用不重复，fallback 后仍满足业务契约，并且随时可以回滚。
+
+## 一、先用启动探针排除基础问题
+
+```bash
+set -euo pipefail
+: "${VIRALAPI_API_KEY:?set VIRALAPI_API_KEY}"
+BASE_URL="${VIRALAPI_BASE_URL:-https://viralapi.ai/v1}"
+
+curl --fail-with-body --connect-timeout 2 --max-time 12 \
+  "$BASE_URL/chat/completions" \
+  -H "Authorization: Bearer $VIRALAPI_API_KEY" \
+  -H "Content-Type: application/json" \
+  -H "X-Request-ID: launch-smoke-001" \
+  -d '{"model":"YOUR_VALIDATED_ROUTE","messages":[{"role":"user","content":"Return JSON: {\"ok\":true}"}],"temperature":0}'
+```
+
+这个探针只检查鉴权、路由和最小响应。流式输出、JSON Schema、工具调用、图片输入、上下文限制、限流、取消请求和 fallback 都要单独测试。
+
+## 二、LLM API 错误码排障表
+
+| 症状 | 首先检查 | 正确自动动作 | 不应做的事 |
+| --- | --- | --- | --- |
+| 401/403 | API key、权限、模型授权、账号状态 | 停止并告警 | 切换模型无限重试 |
+| 400/404/422 | endpoint、模型名、字段类型、工具 schema | 修复请求契约 | 把参数错误当供应商波动 |
+| 429 | `Retry-After`、额度、租户并发、队列、预算 | deadline 允许时退避一次 | 每层 SDK 都重试 |
+| 408/5xx | 上游状态、连接池、熔断和总 deadline | 有预算时重试或 fallback 一次 | 无限扩容线程池 |
+| 200 但 JSON 无效 | Schema、引用、工具结果和领域规则 | 标记失败或 `degraded` | 只按 HTTP 码算成功 |
+| 写操作超时 | 幂等键、服务端状态 | 先查状态，再补偿或重放 | 直接重复发消息或扣费 |
+
+### 401/403 为什么不该 fallback？
+
+这通常是认证或授权问题。fallback 可能把请求送到一个偶然可用但未经批准的路由，掩盖密钥权限错误。
+
+### 429 为什么不能机械重试？
+
+429 可能是瞬时限流，也可能是额度耗尽、租户预算触发或队列已满。只有总 deadline 仍有余量，且服务端允许重试时，才执行一次带 jitter 的退避。
+
+### 5xx 何时可以切模型？
+
+请求必须幂等，备用模型通过了同一组 JSON、工具调用和业务规则测试，并且 fallback 仍在延迟与成本预算内。否则降级可能比明确失败更危险。
+
+## 三、把上线清单变成 CI 门禁
+
+仓库中的 `examples/python/launch_evidence_pack.py` 会根据故障注入结果输出 `go` 或 `no_go`：
+
+```python
+from launch_evidence_pack import evaluate_release
+
+report = evaluate_release([
+    {"name": "auth_401", "observed": "stop", "expected": "stop"},
+    {"name": "rate_limit_429", "observed": "retry_once", "expected": "retry_once"},
+    {"name": "side_effect_timeout", "observed": "lookup_state", "expected": "lookup_state"},
+    {"name": "transient_503", "observed": "fallback_once", "expected": "fallback_once"},
+])
+
+if report["decision"] != "go":
+    raise SystemExit(report)
+```
+
+证据包至少记录 `release_id`、`config_hash`、测试时间、探针结论和失败项。不要记录 API key、Authorization、客户隐私或完整 prompt。每次修改超时、重试、路由、模型或 fallback 配置后，都要重新生成，不能复用旧结论。
+
+## 四、六类业务的上线重点
+
+- **AI 客服**：端到端 deadline、人工接管、禁止重复回复；失败时转人工或仅生成草稿。
+- **内容生成**：批次幂等、预算、审核队列和恢复点；失败时延迟处理，不要无限重跑。
+- **数据分析**：固定输出 schema、输入版本和抽样复核；数据不足时明确返回，不编造结论。
+- **内部工具**：租户权限、审计日志和明确错误；保留人工路径。
+- **批量自动化**：有界队列、背压、死信队列和恢复游标；队列满时停止入队。
+- **SaaS 接入**：租户级限流、熔断、功能开关与回滚；不要让单租户耗尽全局预算。
+
+日志建议包含：`trace_id`、`request_id`、`tenant_id`、`scenario`、`route`、`model`、`cost_group`、`attempt`、`fallback_from`、`latency_ms`、`status_code`、`error_type`、`degraded`、`business_outcome`。
+
+## 五、价格分组如何进入技术决策
+
+价格口径：福利分组官方 1.5 折，官转分组官方 6 折，稳定官方分组官方 8 折。应按预算、稳定性、业务场景和失败代价选择：
+
+- 福利分组适合可重放、可审核、可延迟的测试、分类和离线草稿；
+- 官转分组适合有监控、人工兜底和恢复点的内部工具与常规自动化；
+- 稳定官方分组更适合客户可见 AI 客服、付费 SaaS 核心链路和稳定性要求较高的场景。
+
+价格分组不是 SLA。每个分组都要实测延迟、错误率、输出契约和恢复路径。
+
+## 六、上线与回滚检查清单
+
+上线前：
+
+1. 密钥来自 Secret Manager 或环境变量，日志已脱敏；
+2. 只有一个重试所有者，总 deadline 覆盖重试与 fallback；
+3. 401、429、503、无效 JSON、写操作超时均完成故障注入；
+4. 主路由和备用路由都通过业务契约测试；
+5. 配置哈希、功能开关、回滚负责人和稳定版本已归档；
+6. 租户限流、每日预算、有界队列和人工路径已启用。
+
+上线后：
+
+1. 比较技术成功率和业务成功率；
+2. 监控 P95/P99、429、5xx、超时和无效输出；
+3. 监控 fallback 比例及 fallback 后业务成功率；
+4. 监控每个成功业务结果的成本，而不是只看 token 单价；
+5. 阈值触发后先关新路由或功能开关，再回退配置。
+
+## 七、适合与不适合人群
+
+适合有真实调用量、能自助接入、有基础技术能力，并愿意维护日志、预算、失败边界和回滚流程的小团队、开发者、自动化业务及同行渠道。
+
+不适合小白、白嫖、低预算试玩、高售后消耗、要求代管全部业务逻辑，或可能滥用接口的客户。安全关键、强数据驻留或单一供应商合同 SLA 场景还需要额外合规、合同和人工审批。
+
+## FAQ
+
+### 1. `curl` 返回 200 为什么还不能上线？
+它只证明一条路径在一个时间点可达，没有覆盖限流、超时、无效输出、fallback、租户隔离和回滚。
+
+### 2. SDK 自动重试可以保留吗？
+可以，但 SDK、网关和业务层中只能有一个重试所有者，并受总 deadline 和重试预算约束。
+
+### 3. fallback 后还要检查什么？
+检查 JSON Schema、工具调用、引用、领域规则、延迟、成本和安全策略；请求兼容不代表业务结果兼容。
+
+### 4. 非幂等请求超时怎么办？
+先用 `operation_id` 或幂等键查询服务端状态，确认未执行后再重放。
+
+### 5. 如何选择福利、官转、稳定官方分组？
+按失败代价、可重放性、人工审核、稳定性和预算选择，不要只按最低单价。
+
+### 6. 完整代码在哪里？
+GitHub 仓库提供上线证据示例和标准库测试，GitHub Pages 提供完整 Runbook。
+
+## 资料与联系
+
+- 官网：https://viralapi.ai
+- GitHub：https://github.com/sxl7530-hashs/viralapi-examples
+- GitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/
+- FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html
+- 深度内容矩阵：https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html
+- 邮箱：miutayoung@gmail.com
+- Telegram：viral_8866
+- WeChat：viral_8866

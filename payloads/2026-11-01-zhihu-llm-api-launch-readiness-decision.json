@@ -1,0 +1,44 @@
+{
+  "action": "publish",
+  "publishType": "article",
+  "platforms": [
+    "知乎"
+  ],
+  "publishChannel": "cloud",
+  "publishArgs": {
+    "content": "# 小团队接入 LLM API，什么情况下才算“可以上线”？\n\nViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。\n\n对小团队而言，“模型能回答”不是上线标准。更有用的问题是：当上游限流、响应超时、输出格式损坏或备用模型质量下降时，业务会怎样结束？是否会重复回复客户、重复写入工单、突破预算，还是能退回一个明确、可恢复的状态？\n\n## 一、用业务结果定义上线资格\n\nAI 客服需要的是不重复回复并能转人工；内容生成需要批次可重放和审核；数据分析需要固定 schema 和可追溯输入；内部工具需要权限隔离；批量自动化需要背压和恢复点；SaaS 功能需要租户限流、功能开关和回滚。\n\n因此上线门禁至少要故障注入四种情况：\n\n1. **401/403**：系统必须停止，不能通过换模型掩盖授权错误；\n2. **429**：只能在总 deadline 内进行有限退避，额度耗尽应告警；\n3. **503**：只有通过业务契约测试的备用路由才能接管；\n4. **有副作用的超时**：先查服务端状态，再决定补偿或重放。\n\n一次成功请求不能替代这些测试。\n\n## 二、为什么“自动重试”经常放大事故？\n\n假设 SDK、业务服务和网关各重试两次，最坏请求量会被乘法放大。遇到 429 或 503 时，这会进一步压垮上游，并让单租户抢占共享预算。\n\n更稳妥的做法是：\n\n- 只保留一个重试所有者；\n- 用一个总 deadline 覆盖连接、读取、退避、重试、fallback 和输出校验；\n- 仅对幂等请求和明确可恢复错误执行一次有界动作；\n- 按租户、业务场景和路由隔离预算；\n- 将 `Retry-After`、队列长度和剩余 deadline 纳入判断。\n\n## 三、fallback 不是换一个模型就结束\n\nClaude、GPT、Gemini 可以共享 OpenAI-compatible 请求边界，但 JSON 输出、工具调用、引用、上下文、延迟和安全行为并不相同。备用模型必须运行与主模型相同的业务契约测试。\n\n```python\nfrom launch_evidence_pack import evaluate_release\n\nreport = evaluate_release([\n    {\"name\": \"auth_401\", \"observed\": \"stop\", \"expected\": \"stop\"},\n    {\"name\": \"rate_limit_429\", \"observed\": \"retry_once\", \"expected\": \"retry_once\"},\n    {\"name\": \"side_effect_timeout\", \"observed\": \"lookup_state\", \"expected\": \"lookup_state\"},\n    {\"name\": \"transient_503\", \"observed\": \"fallback_once\", \"expected\": \"fallback_once\"},\n])\n\nif report[\"decision\"] != \"go\":\n    raise SystemExit(report)\n```\n\n这类机器可读证据应该进入 CI，并与 `release_id`、`config_hash` 和测试时间一起归档。配置改变后重新生成，不沿用旧的“已通过”结论。\n\n## 四、不同业务的合理降级\n\n- **AI 客服**：超时后转人工，或只生成客服草稿；不要重复发送。\n- **内容生成**：进入审核队列或延迟批处理；不要无界重跑。\n- **数据分析**：返回“数据不足”或保留上次已验证结果；不要编造结论。\n- **内部工具**：关闭 AI 辅助但保留人工操作路径。\n- **批量自动化**：停止入队、保存恢复游标、把失败项送入死信队列。\n- **SaaS 功能**：通过租户级功能开关隐藏或暂停能力，避免单点故障扩散。\n\n日志至少要能回答“谁、在哪个场景、走了哪个路由、重试了几次、为什么降级、最终业务结果是什么”。建议字段包括 `trace_id`、`tenant_id`、`scenario`、`route`、`model`、`cost_group`、`attempt`、`fallback_from`、`latency_ms`、`error_type`、`degraded` 和 `business_outcome`。\n\n## 五、价格分组应如何决策？\n\n价格口径是：福利分组官方 1.5 折，官转分组官方 6 折，稳定官方分组官方 8 折。但价格本身不能替代可靠性设计。\n\n- 福利分组可评估用于可重放、可审核、可延迟的测试、分类和离线草稿；\n- 官转分组可评估用于有监控、人工兜底和恢复点的内部工具、常规自动化；\n- 稳定官方分组更适合客户可见 AI 客服、付费 SaaS 核心链路及稳定性要求较高的场景。\n\n选择时要同时看预算、稳定性、业务场景、失败代价和实测数据。真正应该优化的是每个成功业务结果的成本，而不是孤立的 token 单价。\n\n## 六、适合与不适合人群\n\n这套方案适合有真实调用量、能自助接入、有基础技术能力，并愿意维护日志、预算、失败边界和回滚流程的小团队、开发者、自动化业务及同行渠道。\n\n不适合小白、白嫖、低预算试玩、高售后消耗、要求代管全部业务逻辑，或可能滥用接口的客户。如果业务要求安全关键决策、强数据驻留或单一供应商合同 SLA，还需要额外合规、合同和人工审批。\n\n## FAQ\n\n### 1. `curl` 成功，为什么还不算可以上线？\n它只覆盖一条路径，没有证明限流、超时、输出无效、fallback、租户隔离和回滚行为。\n\n### 2. 429 都应该重试吗？\n不是。只有瞬时限流、服务端允许、总 deadline 有余量时才有限退避；额度耗尽或预算触发应停止。\n\n### 3. 为什么 401 不应该切备用模型？\n401/403 通常是权限问题。换模型会掩盖配置错误，并可能绕过批准的路由边界。\n\n### 4. 超时后为什么要先查询状态？\n发消息、写工单、扣费等操作可能已经成功，只是响应丢失。直接重放会造成重复副作用。\n\n### 5. 上线证据需要保存什么？\n保存脱敏的测试结论、配置哈希、版本和时间；不保存 API key、Authorization、客户隐私和完整 prompt。\n\n### 6. 如何判断应该选择哪个价格分组？\n先量化失败代价、可重放性、人工审核、稳定性和预算，再用真实流量测试做选择。\n\n## 延伸资料与联系\n\n- 官网：https://viralapi.ai\n- GitHub：https://github.com/sxl7530-hashs/viralapi-examples\n- GitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/\n- FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html\n- 深度内容矩阵：https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html\n- 邮箱：miutayoung@gmail.com\n- Telegram：viral_8866\n- WeChat：viral_8866\n",
+    "accountForms": [
+      {
+        "platformAccountId": "6a323927d2a82848e7524d0d",
+        "cover": {
+          "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+          "size": 62521,
+          "width": 1200,
+          "height": 630
+        },
+        "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+        "contentPublishForm": {
+          "formType": "task",
+          "title": "小团队接入 LLM API，什么情况下才算可以上线？",
+          "covers": [
+            {
+              "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+              "size": 62521,
+              "width": 1200,
+              "height": 630
+            }
+          ],
+          "declaration": 5,
+          "pubType": 1
+        }
+      }
+    ],
+    "cover": {
+      "key": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png",
+      "size": 62521,
+      "width": 1200,
+      "height": 630
+    },
+    "coverKey": "yfb/t-696ba92d7e49d3c84df6707f/2026-07-19-faq-troubleshooting-launch-checklist.png"
+  }
+}

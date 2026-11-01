@@ -53,6 +53,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- LLM API production readiness runbook and rollback evidence guide (2026-11-01): https://sxl7530-hashs.github.io/viralapi-examples/2026-11-01-llm-api-launch-readiness-runbook.html
+- Runnable secret-free launch evidence pack: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_evidence_pack.py
+
 - LLM API launch FAQ and troubleshooting checklist (2026-10-25): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-10-25-llm-api-faq-troubleshooting-launch-checklist.html
 - Runnable no-network launch checklist decision helper: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/llm_api_launch_checklist.py
 
