@@ -53,6 +53,10 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Claude API cross-region failure-domain routing: deadline budgeting, bounded retries, validated fallback and cost groups (2026-11-02): https://sxl7530-hashs.github.io/viralapi-examples/2026-11-02-claude-cross-region-failure-domain-routing.html
+- Runnable network-free Python failure-domain router: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/claude_cross_region_failure_domain_router.py
+
+
 - LLM API production readiness runbook and rollback evidence guide (2026-11-01): https://sxl7530-hashs.github.io/viralapi-examples/2026-11-01-llm-api-launch-readiness-runbook.html
 - Runnable secret-free launch evidence pack: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_evidence_pack.py
 
