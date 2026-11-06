@@ -86,3 +86,7 @@ Use stable-official routing for customer-visible support and paid SaaS features,
 ## How should SDK integrations handle timeouts, rate limits and logs?
 
 Keep API keys in environment variables, set finite SDK timeouts, retry only idempotent failures, and log `request_id`, `tenant_id`, `scenario`, `model`, `cost_group`, `fallback_index`, `attempt`, `latency_ms`, and `error_type`. Customer-visible AI support and paid SaaS features should use stable-official routing first; replayable drafts or batch automation can use lower-cost groups with review and rerun controls. See the [SDK error handling and rate-limit guide](2026-08-27-python-node-sdk-error-handling-rate-limit-logs.md).
+
+## SDK 超时为何未覆盖排队？
+
+在获取并发槽位之前建立入口总截止时间，并限制入口队列。参阅 [客服 SDK 的截止时间与并发边界](https://sxl7530-hashs.github.io/viralapi-examples/2026-11-06-python-sdk-backpressure-deadline.html)。

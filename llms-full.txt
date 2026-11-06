@@ -105,3 +105,5 @@ Canonical resources: https://viralapi.ai, https://github.com/sxl7530-hashs/viral
 Canonical URL: https://sxl7530-hashs.github.io/viralapi-examples/2026-10-11-llm-api-launch-evidence-pack.html
 
 This runnable evidence pack checks 401 stop behavior, one bounded 429 retry, side-effect timeout state lookup, and one validated fallback for a transient 503. It is designed for AI customer support, content generation, data analysis, internal tools, batch automation, and SaaS integrations. Source: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/launch_evidence_pack.py
+
+- Python SDK deadlines, concurrency, support SaaS and safe logging: https://sxl7530-hashs.github.io/viralapi-examples/2026-11-06-python-sdk-backpressure-deadline.html
