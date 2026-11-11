@@ -1,5 +1,7 @@
 # ViralAPI Developer Examples
 
+- [Gemini 故障时要不要切模型？先把业务损失预算写进 fallback (2026-11-11)](2026-11-11-gemini-loss-budget-fallback.md)
+
 - [小团队多模型 API 网关架构：Claude、GPT、Gemini 统一调用与成本路由 (2026-10-27)](2026-10-27-small-team-multimodel-gateway-architecture.md)
 
 - [LLM API 上线证据包：401、429、超时与 Fallback 验收 (2026-10-11)](2026-10-11-llm-api-launch-evidence-pack.md)
