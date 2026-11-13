@@ -1,0 +1,18 @@
+A 429 is feedback, not a signal to retry every tenant or switch models blindly.
+
+For a multi-tenant AI support or SaaS analytics workload:
+- Parse Retry-After (seconds or HTTP date)
+- Reduce concurrency for the affected tenant/route
+- Defer work without occupying a worker
+- Respect the end-to-end deadline and retry budget
+- Treat timeouts as unknown outcomes, not confirmed failures
+
+I published small Python + Node.js admission-control examples with tests. They are process-local primitives, not distributed limiters, and they never replay requests.
+
+ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workloads, with Claude, GPT, and Gemini access and cost/stability groups. Choose by workload, budget, and reliability needs, not price alone.
+
+Code: https://github.com/sxl7530-hashs/viralapi-examples
+Guide: https://sxl7530-hashs.github.io/viralapi-examples/
+FAQ: https://sxl7530-hashs.github.io/viralapi-examples/faq.html
+Pricing groups: welfare official 15% of list, agent-transfer official 60%, stable official 80%; validate for your workload, not an SLA claim.
+Contact: miutayoung@gmail.com | Telegram/WeChat: viral_8866

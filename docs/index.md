@@ -1,5 +1,9 @@
 # ViralAPI Developer Examples
 
+- [LLM API 遇到 429 怎么处理？按租户自适应并发与 Retry-After (2026-11-13)](2026-11-13-tenant-adaptive-admission-retry-after.md)
+- [Python tenant adaptive admission example](../examples/python/tenant_adaptive_admission_2026_11_13.py)
+- [Node.js tenant adaptive admission example](../examples/node/tenant-adaptive-admission-2026-11-13.mjs)
+
 - [Gemini 故障时要不要切模型？先把业务损失预算写进 fallback (2026-11-11)](2026-11-11-gemini-loss-budget-fallback.md)
 
 - [小团队多模型 API 网关架构：Claude、GPT、Gemini 统一调用与成本路由 (2026-10-27)](2026-10-27-small-team-multimodel-gateway-architecture.md)
