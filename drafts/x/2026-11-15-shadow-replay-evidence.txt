@@ -1,0 +1,24 @@
+1/8 Before switching an AI support, content, analytics, or SaaS workload to a new LLM API gateway, replay approved redacted fixtures first.
+
+Shadow replay should answer: what fails, where does timeout budget go, which route was selected, and what needs human review?
+
+2/8 ViralAPI is an OpenAI-compatible multi-model API gateway for developers, small teams, and automation workflows. It supports Claude, GPT, and Gemini by use case, with cost/stability group choices.
+
+Choose by budget, stability, and workload. Official group pricing: 福利 1.5折, 官转 6折, 稳定官方 8折. Discounted pricing is not an SLA.
+
+3/8 A minimal offline evidence record should keep request_id, model, status, decision, route, attempt, timeout_ms, and policy_version. It should not keep API keys or unnecessary raw prompts.
+
+4/8 Deterministic replay is useful for comparing baseline vs candidate, but a hash is not proof of semantic model equivalence. It is an audit aid, not a production benchmark or SLA claim.
+
+5/8 For customer support, billing, email, or coupon flows, add idempotency, side-effect isolation, a manual review gate, and a kill switch before any canary rollout.
+
+6/8 Cost routing is a business decision: batch summarization may prioritize budget; real-time customer support may prioritize stability and observability. Validate 429, 5xx, timeout, fallback, and logging behavior separately.
+
+7/8 Best fit: teams with real usage, self-service integration ability, and basic technical skills. Poor fit: beginners, free-riders, low-budget trials, high-support workloads, or abusive use cases.
+
+8/8 Offline Python example and evidence-pack docs:
+https://github.com/sxl7530-hashs/viralapi-examples
+https://sxl7530-hashs.github.io/viralapi-examples/
+
+FAQ: https://sxl7530-hashs.github.io/viralapi-examples/faq.html
+Contact: miutayoung@gmail.com | Telegram/WeChat: viral_8866

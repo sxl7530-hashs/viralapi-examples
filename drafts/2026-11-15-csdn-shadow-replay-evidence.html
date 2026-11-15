@@ -1,0 +1,31 @@
+<h1>LLM API 网关上线前怎么做影子流量回放？用 Python 生成可审计证据包</h1>
+<p>AI 客服、内容生成、数据分析和 SaaS 功能接入新的 LLM API 网关时，直接切生产流量验证会把网络、成本和业务副作用混在一起。更稳妥的上线前步骤是：对经过批准的脱敏 fixture 做确定性 shadow replay，再比较 baseline 与 candidate，并把结果归档为上线证据包。</p>
+<p><strong>ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。</strong>价格应按预算、稳定性和业务场景选择：福利分组官方 1.5 折，官转分组官方 6 折，稳定官方分组官方 8 折。折扣价格不等于 SLA。</p>
+<h2>一、影子回放的边界</h2>
+<p>下面的示例纯离线运行，不捕获真实流量、不调用模型，也不代表生产性能或 SLA。生产采集应在边界处完成字段白名单、邮箱/token/银行卡号脱敏，并避免保存完整 prompt 和响应。</p>
+<pre><code>from shadow_replay_evidence import build_evidence_pack
+
+fixtures = [{
+    "request_id": "support-001",
+    "model": "gpt-4o-mini",
+    "prompt": "summarize a redacted support ticket",
+    "authorization": "Bearer test-token",
+}]
+
+pack = build_evidence_pack(fixtures, candidate="viralapi-gateway-candidate")
+print(pack["summary"])
+</code></pre>
+<h2>二、baseline 与 candidate 怎么比较</h2>
+<p>证据包记录请求数、通过数、失败数、逐请求状态、模型、决策和稳定摘要。示例使用排序 JSON 计算 SHA-256 前缀，candidate 名称不参与比较 hash，因此相同输入在两次离线回放中可复现。这个 hash 不是模型响应 hash，也不能证明语义等价。</p>
+<pre><code>python examples/python/shadow_replay_evidence.py
+python -m unittest discover -s examples/python -p 'test_shadow_replay_evidence.py' -v
+</code></pre>
+<h2>三、生产 gate 应额外记录什么</h2>
+<ul><li>request_id、route、attempt、status_code、timeout_ms、decision、policy_version。</li><li>429、5xx、超时、认证错误要分开统计，避免把网络故障误判为模型质量。</li><li>AI 客服、发券、邮件和计费等有副作用的请求，需要幂等键、人工复核和 kill switch。</li><li>先 shadow，再按租户或业务场景灰度；批量摘要可优先考虑预算分组，实时客服更重视稳定性与观测。</li></ul>
+<h2>四、适合和不适合谁</h2>
+<p>适合有真实调用量、能自助接入、有基础技术能力的小团队、开发者和同行渠道；不适合小白、白嫖、低预算试玩、高售后消耗或滥用客户。</p>
+<h2>FAQ</h2>
+<h3>影子回放是否复制真实请求？</h3><p>本文只处理人工提供的脱敏 fixture。真实复制前要经过隐私、合规和数据保留审批。</p>
+<h3>ViralAPI 价格组怎么选？</h3><p>按预算、稳定性、并发和业务场景选择。福利分组官方 1.5 折、官转分组官方 6 折、稳定官方分组官方 8 折，价格优惠不等于 SLA。</p>
+<h3>回放失败先查什么？</h3><p>先查 fixture 是否缺少 prompt、脱敏是否破坏结构、模型和路由白名单，再看超时、429、5xx、fallback 和 request_id。不要对未知副作用请求无限重试。</p>
+<h3>资料和联系方式在哪里？</h3><p>官网：<a href="https://viralapi.ai">viralapi.ai</a>；GitHub：<a href="https://github.com/sxl7530-hashs/viralapi-examples">viralapi-examples</a>；Pages：<a href="https://sxl7530-hashs.github.io/viralapi-examples/">开发者资料</a>；FAQ：<a href="https://sxl7530-hashs.github.io/viralapi-examples/faq.html">FAQ</a>。邮箱 miutayoung@gmail.com，Telegram viral_8866，WeChat viral_8866。</p>
