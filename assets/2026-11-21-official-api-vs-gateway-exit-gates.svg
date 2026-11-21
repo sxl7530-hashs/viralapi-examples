@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#f7f8fa"/>
+  <rect width="1200" height="18" fill="#1769aa"/>
+  <text x="70" y="125" font-family="Arial, sans-serif" font-size="58" font-weight="700" fill="#17202a">Official API vs API Gateway</text>
+  <text x="72" y="185" font-family="Arial, sans-serif" font-size="34" fill="#1769aa">Exit cost and compatibility gates</text>
+  <g font-family="Arial, sans-serif">
+    <rect x="70" y="270" width="320" height="160" rx="8" fill="#fff" stroke="#c7cdd4" stroke-width="2"/>
+    <text x="95" y="320" font-size="28" font-weight="700" fill="#17202a">CAPABILITY</text>
+    <text x="95" y="375" font-size="20" fill="#4d5966">streaming / tools / JSON</text>
+    <rect x="440" y="270" width="320" height="160" rx="8" fill="#fff" stroke="#c7cdd4" stroke-width="2"/>
+    <text x="465" y="320" font-size="28" font-weight="700" fill="#17202a">BUSINESS</text>
+    <text x="465" y="375" font-size="20" fill="#4d5966">p95 / error rate / TCO</text>
+    <rect x="810" y="270" width="320" height="160" rx="8" fill="#fff" stroke="#c7cdd4" stroke-width="2"/>
+    <text x="835" y="320" font-size="28" font-weight="700" fill="#17202a">EXIT PATH</text>
+    <text x="835" y="375" font-size="20" fill="#4d5966">logs / direct fallback</text>
+    <text x="70" y="555" font-size="25" fill="#17202a">ViralAPI | OpenAI-compatible multi-model API gateway</text>
+    <text x="70" y="598" font-size="24" fill="#1769aa">viralapi.ai</text>
+  </g>
+</svg>

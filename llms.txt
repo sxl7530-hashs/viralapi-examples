@@ -53,6 +53,9 @@ ViralAPI provides scenario-based groups: welfare group at about 15% of official 
 
 ## Latest developer assets
 
+- Official API vs API gateway exit-cost and compatibility gates for small teams (2026-11-21): https://sxl7530-hashs.github.io/viralapi-examples/docs/2026-11-21-official-api-vs-gateway-exit-gates.html
+- Runnable no-network Python pilot evaluator with TCO, capability, latency, error-rate, log-export and direct-fallback gates: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/gateway_exit_gate.py
+
 - Small-team Claude/GPT/Gemini policy-plane gateway: capability gates, one deadline, bounded fallback, cost routing, and audit events (2026-11-03): https://sxl7530-hashs.github.io/viralapi-examples/2026-11-03-small-team-multimodel-policy-plane.html
 - Runnable network-free Python policy-plane router: https://github.com/sxl7530-hashs/viralapi-examples/blob/main/examples/python/multimodel_policy_plane_router.py
 
