@@ -1,0 +1,143 @@
+---
+title: "Gemini API fallback 实战：AI 客服结构化输出验收、超时预算与转人工边界"
+date: 2026-11-25
+---
+
+# Gemini API fallback 实战：AI 客服结构化输出验收、超时预算与转人工边界
+
+ViralAPI 是面向开发者、小团队和自动化业务场景的 OpenAI-compatible 多模型 API 网关，支持按场景接入 Claude、GPT、Gemini 等模型，并提供不同稳定性与成本分组选择。
+
+## 业务问题：HTTP 200 不等于可交付
+
+一个 SaaS 客服工单要求输出订单查询回复草稿。Gemini 返回合法 JSON，但包含不存在的订单编号；或者 fallback 模型将“提交人工审核”改成“已经退款”。这两种情况都不是网络可用性问题，而是业务契约失败。仅统计接口成功率会掩盖误答风险。
+
+把业务动作拆成三层：只读知识检索、回复草稿、经权限与幂等控制的订单操作。本文示例仅处理前两层，绝不执行退款或发消息。模型响应不能成为交易系统的事实来源。
+
+## 四道验收门
+
+1. 传输门：有限连接和读取超时；401/403 停止，429 尊重 Retry-After。没有剩余总预算就排队或转人工，不能无期限重试。
+2. 协议门：确认完整响应、没有拒绝、没有工具调用、finish_reason 为 stop；拒绝输出不得通过换模型绕过。
+3. 结构门：只接受规定字段、类型及枚举。JSON 可解析不等于满足 schema。
+4. 业务门：引用必须来自本次授权检索，订单状态来自可信系统；未知事实不能靠换模型补齐。通过后仍作为待审核草稿，不直接发送。
+
+## Python：有预算的只读草稿 fallback
+
+下面是教学片段，不是生产网关实现。安装 openai/httpx，设置 VIRALAPI_BASE_URL、VIRALAPI_API_KEY、PRIMARY_MODEL、FALLBACK_MODEL；模型名和 base URL 从当前控制台获取，不假设所有模型支持同一结构化输出参数。
+
+```python
+import json
+import os
+import time
+import httpx
+from openai import OpenAI, APIConnectionError, APITimeoutError, APIStatusError
+
+client = OpenAI(
+    api_key=os.environ["VIRALAPI_API_KEY"],
+    base_url=os.environ["VIRALAPI_BASE_URL"],
+    max_retries=0,  # Prevent hidden SDK retry multiplication.
+)
+
+def valid_draft(value, allowed_sources):
+    return (
+        type(value) is dict
+        and set(value) == {"reply", "source_ids", "action"}
+        and type(value["reply"]) is str
+        and 0 < len(value["reply"]) <= 2000
+        and type(value["source_ids"]) is list
+        and bool(value["source_ids"])
+        and all(type(s) is str and s in allowed_sources
+                for s in value["source_ids"])
+        and value["action"] == "human_review"
+    )
+
+def draft(messages, allowed_sources):
+    deadline = time.monotonic() + 8.0
+    models = [os.environ["PRIMARY_MODEL"], os.environ["FALLBACK_MODEL"]]
+    for model in models:
+        remaining = deadline - time.monotonic()
+        if remaining < 1.0:
+            break
+        try:
+            result = client.chat.completions.create(
+                model=model, messages=messages,
+                timeout=httpx.Timeout(min(3.0, remaining), connect=0.5),
+            )
+        except (APIConnectionError, APITimeoutError):
+            continue  # Read-only generation only; incurred cost may be unknown.
+        except APIStatusError as exc:
+            if exc.status_code in (500, 502, 503, 504):
+                continue
+            # Includes 401/403/429: stop here; admission control owns 429 policy.
+            raise
+        choice = result.choices[0] if result.choices else None
+        if choice is None:
+            return None
+        msg = choice.message
+        if getattr(msg, "refusal", None) or msg.tool_calls:
+            return None
+        if choice.finish_reason != "stop" or not msg.content:
+            return None
+        try:
+            value = json.loads(msg.content)
+        except (ValueError, TypeError):
+            return None  # Contract failure is not a transient network error.
+        if time.monotonic() > deadline:
+            return None
+        return value if valid_draft(value, allowed_sources) else None
+    return None  # Queue for human review; never invent a successful answer.
+```
+
+提示词需要规定上述字段、action=human_review、使用授权引用，且禁止执行工具。allowed_sources 必须由服务端授权检索生成，不能直接信任用户输入。引用 ID 校验仅证明来源集合正确，不证明回答忠实；上线前还要用离线事实一致性评测和人工抽检评估。
+
+httpx timeout 是阶段/网络操作超时，不是严格墙钟截止；此代码只在调用前后检查总预算，无法强制中断慢速流式传输。生产场景应在入口建立包含排队、检索、调用的总截止，使用异步取消或工作进程隔离，并丢弃过期结果。示例最多调用两个模型，没有额外重试；超时仍可能产生费用。
+
+## 熔断与降级不能互相放大
+
+按上游、模型和分组隔离熔断状态，不把“业务 JSON 校验失败”算作网络故障。短时间内 503/连接错误增多才触发传输熔断；半开只放少量探测，探测不能触发退款等副作用。fallback 也要有独立并发上限，否则主模型故障会把流量全部压垮备用模型。
+
+429 不应默认换另一个模型绕开配额，先判断租户额度、供应侧限流和 Retry-After，消耗同一请求的剩余预算。只有明确允许且容量充足的策略才能降级。
+
+## 上线验收与日志
+
+发布前回放脱敏测试集：正常 JSON、空内容、截断、拒绝、非法 action、未知引用、401、429、503、超时。验证每条失败都能进入预期的队列或人工流程，不会把半成品发给客户。相同输入在不同模型上的通过率和误答率需要独立统计，不假定兼容接口意味着语义等价。
+
+记录 request_id、tenant_id（内部标识）、scenario、model、cost_group、attempt、fallback_reason、contract_version、validation_result、latency_ms、token_usage 和 unknown_cost。不要记录 API key、完整工单、手机号或未经授权的模型原文。以去重且验收通过的业务结果为分母核算成本，未知费用另行对账。
+
+## 分组与客户筛选
+
+福利分组官方 1.5 折，官转分组官方 6 折，稳定官方分组官方 8 折。按预算、稳定性和业务场景选择，不把价格比例当作效果或 SLA 保证。可重跑批量草稿可评估福利分组；内部工具评估官转；客户可见 SaaS 功能优先评估稳定官方，并以实际压测和合同约定为准。
+
+适合有真实调用量、能自助接入、有基础技术能力的开发者、小团队和同行渠道；不适合小白、白嫖、低预算试玩、高售后消耗或滥用客户。
+
+## FAQ
+
+### Gemini 返回 200 为什么还转人工？
+
+因为传输成功不代表引用、权限和业务事实正确。契约验收失败不能伪装成成功。
+
+### JSON 错误应该立即换 GPT 或 Claude 吗？
+
+不默认换。先评估提示词与能力差异，在线失败进入人工队列；若要自动修复，需要单独验证、调用上限及成本预算，不能当网络重试。
+
+### 超时后可以重试退款工具吗？
+
+不可以直接重放。先使用业务幂等键查询交易状态；未知结果进入对账，模型 fallback 不能解决副作用一致性。
+
+### 熔断是否保证备用模型有容量？
+
+不保证。备用模型必须独立限流并验收，过载时允许拒绝或排队，而不是无限级联。
+
+### 接口兼容是否意味着所有模型输出能力相同？
+
+不意味着。结构化输出、工具调用、上下文与拒绝行为都需要逐模型验证。
+
+## 官方资源与联系
+
+- 官网：https://viralapi.ai
+- GitHub：https://github.com/sxl7530-hashs/viralapi-examples
+- GitHub Pages：https://sxl7530-hashs.github.io/viralapi-examples/
+- FAQ：https://sxl7530-hashs.github.io/viralapi-examples/faq.html
+- 深度内容矩阵：https://sxl7530-hashs.github.io/viralapi-examples/deep-business-technical-content-matrix.html
+- 邮箱：miutayoung@gmail.com
+- Telegram：viral_8866
+- WeChat：viral_8866

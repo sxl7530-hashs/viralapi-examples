@@ -90,3 +90,6 @@ Keep API keys in environment variables, set finite SDK timeouts, retry only idem
 ## SDK 超时为何未覆盖排队？
 
 在获取并发槽位之前建立入口总截止时间，并限制入口队列。参阅 [客服 SDK 的截止时间与并发边界](https://sxl7530-hashs.github.io/viralapi-examples/2026-11-06-python-sdk-backpressure-deadline.html)。
+## Gemini fallback 返回合法 JSON 就可以直接发给客户吗？
+
+不可以。还要验证字段 schema、拒绝与截断状态，以及引用是否属于本次授权检索；有效草稿仍应经过业务审核。参阅 [Gemini fallback 契约验收与安全降级](https://sxl7530-hashs.github.io/viralapi-examples/2026-11-25-gemini-fallback-contract-gates.html)。
